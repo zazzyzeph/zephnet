@@ -1,0 +1,3 @@
+[submodule "himstagram"]
+	path = themes/himstagram
+	url = https://github.com/zazzyzeph/himstagram.git
