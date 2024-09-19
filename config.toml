@@ -1,3 +1,27 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://zephnet.biz/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Zephnetdotbiz'
+theme = 'himstagram'
+publishDir = 'public'
+
+[permalinks]
+  singles = '/:title/'
+
+[menu]
+  [[menu.main]]
+    name = 'Posts'
+    url = '/'
+    weight = 1
+  [[menu.main]]
+    name = 'About'
+    url = '/about/'
+    weight = 2
+  [[menu.main]]
+    name = 'Plants'
+    url = '/plants/'
+    weight = 3
+  [[menu.main]]
+    name = 'Tags'
+    url = '/tags/'
+    weight = 4
+
