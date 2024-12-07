@@ -2,7 +2,8 @@ baseURL = 'https://zephnet.biz/'
 languageCode = 'en-us'
 title = 'Zephnetdotbiz'
 theme = 'himstagram'
-publishDir = 'public'
+contentDir = 'content'
+publishDir = '../public'
 
 [permalinks]
   singles = '/:title/'
