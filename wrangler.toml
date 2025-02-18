@@ -1,0 +1,9 @@
+name = "micropub"
+main = "functions/micropub.js"
+compatibility_date = "2025-02-17"
+usage_model = "bundled"
+env = { }
+node_compat = true
+
+[vars]
+DEV = false
