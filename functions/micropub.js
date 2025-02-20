@@ -2,22 +2,40 @@ export function onRequestGet(context) {
   return new Response("Hey kid! Scram! (POST requests only)")
 }
 
-export function onRequestPost(context) {
-  if (context.env.DEV){
-    let template = `
----
-title: "First"
-type: "posts"
-date: 2024-12-28T14:50:07-05:00
-draft: false
-featured_image: false
-featured_image_alt: false
----
+export async function onRequestPost(context) {
+  try {
+    let input = await context.request.formData()
+    let form = Object.fromEntries(input)
 
-content content content
-    `
-    return new Response(JSON.stringify(context.request.body)
+    let jsonString = JSON.stringify(form)
+    if (form.access_token) {
+      if (Object.keys(form).includes('h-entry') && form.content){
+        if (context.env.DEV) {
+          jsonString = JSON.stringify({'hiiii':'lol'})
+        }
+        else {
+          let url = "https://tokens.indieauth.com/token"
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Accept": "application/json",
+              "Authorization": "Bearer " + form.access_token
+            }
+          })
+          if (!response.ok) {
+            throw new Error(`Status: ${response.status}`)
+          }
+          let json = response.json()
+          jsonString = JSON.stringify(json)
+        }
+      }
+    }
+    return new Response(jsonString, {
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    })
+  } catch (err) {
+    return new Response("Error parsing JSON content", { status: 400 })
   }
-  return new Response("request denied")
 }
-
