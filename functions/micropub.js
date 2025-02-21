@@ -11,7 +11,6 @@ export async function onRequestPost(context) {
     if (form.access_token) {
       if (Object.keys(form).includes('h-entry') && form.content){
         if (context.env.DEV) {
-          jsonString = JSON.stringify({'hiiii':'lol'})
         }
         else {
           let url = "https://tokens.indieauth.com/token"
