@@ -1,0 +1,21 @@
+{
+  "name": "zephnet",
+  "version": "1.0.0",
+  "description": "My personal Hugo site",
+  "homepage": "https://github.com/zazzyzeph/zephnet#readme",
+  "bugs": {
+    "url": "https://github.com/zazzyzeph/zephnet/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zazzyzeph/zephnet.git"
+  },
+  "license": "ISC",
+  "author": "zazzyzeph",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler pages dev --local-protocol=https ./public",
+    "test": "node --test"
+  }
+}

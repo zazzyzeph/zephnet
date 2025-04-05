@@ -2,4 +2,5 @@
 hugo
 public/
 node_modules/
+node_modules/.mf/cf.json
 .wrangler/

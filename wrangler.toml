@@ -1,6 +1,5 @@
 name = "micropub"
 main = "functions/micropub.js"
-usage_model = "bundled"
 env = { }
 compatibility_flags = [ "nodejs_compat" ]
 compatibility_date = "2024-09-23"
