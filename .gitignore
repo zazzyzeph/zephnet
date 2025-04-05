@@ -1,3 +1,5 @@
 *.tar.gz
 hugo
 public/
+node_modules/
+.wrangler/
