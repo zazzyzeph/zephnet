@@ -3,4 +3,5 @@ hugo
 public/
 node_modules/
 node_modules/.mf/cf.json
+.dev.env
 .wrangler/

@@ -1,4 +1,4 @@
-async function createCommit(env, content, postTitle) {
+async function createPost(env, content, postTitle) {
   // pass in env from context.env
   const token = env.TOKEN;
   const username = env.USERNAME;
@@ -71,7 +71,7 @@ async function createCommit(env, content, postTitle) {
 
 export function onRequestGet(context) {
   // default response if the user didn't include any micropub-spec arguments
-  return new Response("Hey kid! Scram! (POST requests only)");
+  return new Response("Who gave you this address");
 }
 
 export async function onRequestPost(context) {
