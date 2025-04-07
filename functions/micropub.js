@@ -4,7 +4,7 @@ async function createPost(env, content, postTitle) {
   const username = env.USERNAME;
   const repo = env.REPO;
   const branch = env.BRANCH;
-  const postsRepoDir = env.POSTS_REPO_DIR;
+  const postsMdDir = env.POSTS_MD_DIR;
   const postsPublicDir = env.POSTS_PUBLIC_DIR;
 
   const endpoint = "https://api.github.com/graphql";
@@ -35,7 +35,7 @@ async function createPost(env, content, postTitle) {
       fileChanges: {
         additions: [
           {
-            path: `${postsRepoDir}/${postTitle}.md`,
+            path: `${postsMdDir}/${postTitle}.md`,
             contents: base64PostContent,
           },
         ],
@@ -67,6 +67,27 @@ async function createPost(env, content, postTitle) {
       { status: 200 },
     );
   }
+}
+
+function makePostMd(title, content, tags) {
+  const date = new Date();
+  const dateString = date.toISOString();
+  // prep the js tags array to make it into the format the hugo frontmatter expects
+  tags = tags.toString();
+  tags = `[${tags}]`;
+  return `
+    ---
+    title: "${title}"
+    type: "posts"
+    date: "${dateString}"
+    draft: false
+    featured_image: false
+    featured_image_alt: false
+    tags: ${tags}
+    ---
+
+    ${content}
+  `;
 }
 
 export function onRequestGet(context) {
@@ -105,8 +126,23 @@ export async function onRequestPost(context) {
     }
     // by this point we should be authorized
     // if the 'h' key is present, we're trying to create a post
+    // (h isn't arbitrary, it's the micropub spec haha)
     if (formKeys.includes("h") && formKeys.includes("content")) {
-      jsonString = `{ content: 'we did it joe' }`;
+      try {
+        const content = makePostMd("title", "tesssst", ["short", "dookie"]);
+        jsonString = content;
+      } catch (error) {
+        return new Response(
+          `{ status: 500, ok: false, message: 'failed making the post/commit. whoops!' }`,
+          {
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+            ok: false,
+            status: 500,
+          },
+        );
+      }
     }
     return new Response(jsonString, {
       headers: {

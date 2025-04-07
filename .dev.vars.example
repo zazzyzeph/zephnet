@@ -4,5 +4,5 @@ TOKEN=GitHubTokenString
 USERNAME=GitHubUsername
 REPO=NameOfTheRepo
 BRANCH=BranchToPushTo
-POSTS_REPO_DIR=Directory/Of/Your/HugoPostsMarkdown
+POSTS_MD_DIR=Directory/Of/Your/HugoPostsMarkdown
 POSTS_PUBLIC_DIR=Directory/In/Repo/WherePostsAreServedFrom
