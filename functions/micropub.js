@@ -1,155 +1,144 @@
-async function createPost(env, content, postTitle) {
-  // pass in env from context.env
-  const token = env.TOKEN;
-  const username = env.USERNAME;
-  const repo = env.REPO;
-  const branch = env.BRANCH;
-  const postsMdDir = env.POSTS_MD_DIR;
-  const postsPublicDir = env.POSTS_PUBLIC_DIR;
-
-  const endpoint = "https://api.github.com/graphql";
-
-  const query = `
-        mutation ($input: CreateCommitOnBranchInput!) {
-            createCommitOnBranch(input: $input) {
-                commit {
-                    oid
-                    url
-                }
-            }
-        }
-    `;
-
-  // the file content needs to be a base64 blob for the gh api
-  const base64PostContent = btoa(content);
-
-  const vars = {
-    input: {
-      branch: {
-        repositoryNameWithOwner: `${username}/${repo}`,
-        branchName: branch,
-      },
-      message: {
-        headline: `new post - ${postTitle}`,
-      },
-      fileChanges: {
-        additions: [
-          {
-            path: `${postsMdDir}/${postTitle}.md`,
-            contents: base64PostContent,
-          },
-        ],
-      },
-    },
-  };
-
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query, vars }),
-  });
-
-  const result = await response.json();
-
-  if (result.errors) {
-    return new Response(JSON.stringify({ error: result.errors }), {
-      status: 400,
-    });
-  } else {
-    return new Response(
-      JSON.stringify({
-        message: `https://${baseUrl}/$`,
-        url: result.data.createCommitOnBranch.commit.url,
-      }),
-      { status: 200 },
-    );
-  }
-}
-
-function makePostMd(title, content, tags) {
-  const date = new Date();
-  const dateString = date.toISOString();
-  // prep the js tags array to make it into the format the hugo frontmatter expects
-  tags = tags.toString();
-  tags = `[${tags}]`;
-  return `
-    ---
-    title: "${title}"
-    type: "posts"
-    date: "${dateString}"
-    draft: false
-    featured_image: false
-    featured_image_alt: false
-    tags: ${tags}
-    ---
-
-    ${content}
-  `;
-}
-
-export function onRequestGet(context) {
-  // default response if the user didn't include any micropub-spec arguments
+export async function onRequestGet(context) {
+  const { request, env } = context;
   return new Response("Who gave you this address");
 }
 
 export async function onRequestPost(context) {
+  // split out the request and env objects from the context object with destructive assignment
+  const { request, env } = context;
+
   try {
-    let input = await context.request.formData();
-    let form = Object.fromEntries(input);
-    let formKeys = Object.keys(form);
-    let jsonString = JSON.stringify(form);
-    if (form.access_token) {
-      // our DEV environment variable lets us bypass autorization
-      if (!context.env.DEV) {
-        let url = "https://tokens.indieauth.com/token";
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + form.access_token,
-          },
-        });
-        if (!response.ok) {
-          jsonString = "{Status: response.status}";
-          return new Response(jsonString, {
-            headers: {
-              "Content-Type": "application/json;charset=utf-8",
-            },
-          });
+    // Parse multipart/form-data
+    const formData = await request.formData();
+
+    // GitHub API configuration
+    const GH_TOKEN = env.GH_TOKEN;
+    const GH_USERNAME = env.GH_USERNAME;
+    const REPO = env.REPO;
+    const BRANCH = env.BRANCH;
+
+    if (!GH_TOKEN || !GH_USERNAME || !REPO) {
+      return new Response("Missing GitHub configuration", { status: 500 });
+    }
+
+    // Content for test.md file
+    const fileContent = `# Test File
+
+This file was created via micropub on ${new Date().toISOString()}.
+
+## Form Data Received:
+${Array.from(formData.entries())
+  .map(([key, value]) => `- ${key}: ${value}`)
+  .join("\n")}
+`;
+
+    // Encode content to base64
+    const encodedContent = btoa(unescape(encodeURIComponent(fileContent)));
+
+    // GraphQL mutation to create/update file
+    const mutation = `
+      mutation CreateFile($input: CreateCommitOnBranchInput!) {
+        createCommitOnBranch(input: $input) {
+          commit {
+            oid
+            url
+          }
         }
-        let json = response.json();
-        jsonString = JSON.stringify(json);
       }
-    }
-    // by this point we should be authorized
-    // if the 'h' key is present, we're trying to create a post
-    // (h isn't arbitrary, it's the micropub spec haha)
-    if (formKeys.includes("h") && formKeys.includes("content")) {
-      try {
-        const content = makePostMd("title", "tesssst", ["short", "dookie"]);
-        jsonString = content;
-      } catch (error) {
-        return new Response(
-          `{ status: 500, ok: false, message: 'failed making the post/commit. whoops!' }`,
-          {
-            headers: {
-              "Content-Type": "application/json;charset=utf-8",
+    `;
+
+    const variables = {
+      input: {
+        branch: {
+          repositoryNameWithOwner: `${GH_USERNAME}/${REPO}`,
+          branchName: `${BRANCH}`,
+        },
+        message: {
+          headline: "Add test.md",
+        },
+        fileChanges: {
+          additions: [
+            {
+              path: "test.md",
+              contents: encodedContent,
             },
-            ok: false,
-            status: 500,
-          },
-        );
+          ],
+        },
+        expectedHeadOid: await getLatestCommitSha(GH_TOKEN, GH_USERNAME, REPO),
+      },
+    };
+
+    // make request to github
+    const response = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${GH_TOKEN}`,
+        "Content-Type": "application/json",
+        "User-Agent": "Micropub/1.0",
+      },
+      body: JSON.stringify({
+        query: mutation,
+        variables: variables,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (result.errors) {
+      console.error("error making request to github:", result.errors);
+      return new Response(
+        `GitHub API error: ${JSON.stringify(result.errors)}`,
+        { status: 500 },
+      );
+    }
+
+    // Return success response
+    return new Response(
+      JSON.stringify({
+        success: true,
+        commit: result.data.createCommitOnBranch.commit,
+        message: "File test.md created successfully",
+      }),
+      {
+        status: 201,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  } catch (error) {
+    console.error("Error in onRequestPost:", error);
+    return new Response(`Server error: ${error.message}`, { status: 500 });
+  }
+}
+
+// Helper function to get the latest commit SHA
+async function getLatestCommitSha(token, owner, repo) {
+  const query = `
+    query GetLatestCommit($owner: String!, $repo: String!) {
+      repository(owner: $owner, name: $repo) {
+        defaultBranchRef {
+          target {
+            oid
+          }
+        }
       }
     }
-    return new Response(jsonString, {
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-    });
-  } catch (err) {
-    return new Response("Error parsing JSON content", { status: 400 });
-  }
+  `;
+
+  const response = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "User-Agent": "Micropub-Handler/1.0",
+    },
+    body: JSON.stringify({
+      query: query,
+      variables: { owner, repo },
+    }),
+  });
+
+  const result = await response.json();
+  return result.data.repository.defaultBranchRef.target.oid;
 }
