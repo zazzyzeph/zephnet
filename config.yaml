@@ -1,0 +1,24 @@
+
+baseURL: 'https://zephnet.biz/'
+languageCode: en-us
+title: Zephnetdotbiz
+theme: himstagram
+contentDir: content
+publishDir: public
+permalinks:
+  singles: '/:title/'
+menu:
+  main:
+    - name: Posts
+      url: /
+      weight: 1
+    - name: About
+      url: /about/
+      weight: 2
+    - name: Plants
+      url: /plants/
+      weight: 3
+    - name: Tags
+      url: /tags/
+      weight: 4
+
