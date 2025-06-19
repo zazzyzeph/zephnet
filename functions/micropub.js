@@ -30,12 +30,15 @@ export async function onRequestPost(context) {
     const authorized = await authorizationTokenVerification(
       params.get("access_token"),
     );
+    if (authorized) {
+      return new Response("Success!", { status: 200 });
+    }
   } catch (e) {
     return new Response("busted :^(", { status: 500 });
   }
 
-  // return new Response("Not Authorized >:^( params:" + params.toString(), {
-  //   status: 403,
-  // });
+  return new Response("Not Authorized >:^( params: " + params.toString(), {
+    status: 403,
+  });
   // return new Response("Not Authorized >:^(", { status: 403 });
 }
