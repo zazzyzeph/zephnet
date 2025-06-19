@@ -34,8 +34,8 @@ export async function onRequestPost(context) {
     return new Response("busted :^(", { status: 500 });
   }
 
-  return new Response("Not Authorized >:^( params:" + params.toString(), {
-    status: 403,
-  });
+  // return new Response("Not Authorized >:^( params:" + params.toString(), {
+  //   status: 403,
+  // });
   // return new Response("Not Authorized >:^(", { status: 403 });
 }
