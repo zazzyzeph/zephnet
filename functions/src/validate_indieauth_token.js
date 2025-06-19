@@ -10,7 +10,7 @@ export async function authorizationTokenVerification(token) {
     throw new Error(`Response status: ${response.status}`);
   }
   const json = await response.json();
-  if (json.hasOwnProperty("issued_at")) {
+  if (json.hasOwnProperty("me")) {
     return true;
   }
   return false;
