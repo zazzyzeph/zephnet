@@ -42,7 +42,6 @@ export async function onRequestPost(context) {
   }
 
   if (authorized) {
-    if (params.)
     return new Response("Success :^)", { status: 200 });
   }
   return new Response("Internal Server Error :^(", { status: 500 });
