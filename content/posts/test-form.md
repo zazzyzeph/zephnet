@@ -1,7 +1,7 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
+title: "Test Form"
 type: "posts"
-date: {{ .Date }}
+date: 2025-06-19T16:25:15-04:00
 featured_image: false
 featured_image_alt: false
 tags: []

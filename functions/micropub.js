@@ -21,24 +21,29 @@ export async function onRequestPost(context) {
 
   // make sure we have the bare minimum for a a post (token, content, object type being created (h=entry probably))
   const requiredKeysArr = ["access_token", "content", "h"];
-  const hasAllKeys = requiredKeysArr.every((item) => params.has(item));
+  const hasRequiredKeys = requiredKeysArr.every((item) => params.has(item));
 
-  if (!hasAllKeys) {
-    return new Response("Bad Request", { status: 400 });
+  if (!hasRequiredKeys) {
+    return new Response("Bad Request: " + params.toString(), { status: 400 });
   }
   try {
-    const authorized = await authorizationTokenVerification(
-      params.get("access_token"),
-    );
-    if (authorized) {
-      return new Response("Success!", { status: 200 });
+    let authorized = false;
+    if (env.DEV) {
+      authorized = true;
+    } else {
+      authorized = await authorizationTokenVerification(
+        params.get("access_token"),
+      );
     }
   } catch (e) {
-    return new Response("busted :^(", { status: 500 });
+    return new Response("Not Authorized >:^(", {
+      status: 403,
+    });
   }
 
-  return new Response("Not Authorized >:^( params: " + params.toString(), {
-    status: 403,
-  });
-  // return new Response("Not Authorized >:^(", { status: 403 });
+  if (authorized) {
+    if (params.)
+    return new Response("Success :^)", { status: 200 });
+  }
+  return new Response("Internal Server Error :^(", { status: 500 });
 }
