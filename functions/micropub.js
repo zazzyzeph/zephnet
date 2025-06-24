@@ -46,6 +46,9 @@ export async function onRequestPost(context) {
         authorized = await authorizationTokenVerification(
           formData.get("access_token"),
         );
+        if (authorized) {
+          return new Response("Success :^)", { status: 200 });
+        }
       } else {
         throw new Error(
           "authorizationTokenVerification didn't throw. Token: " + token,
@@ -62,7 +65,6 @@ export async function onRequestPost(context) {
       status: 403,
     });
   }
-
   if (authorized) {
     return new Response("Success :^)", { status: 200 });
   }
