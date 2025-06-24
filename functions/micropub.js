@@ -12,6 +12,8 @@ export async function onRequestPost(context) {
   // split out the request and env objects from the context object with destructive assignment
   const { request, env } = context;
 
+  const headers = new Headers();
+
   // this is currently a test function - it makes a markdown file, thats it -- 2025-06-15
   // const response = githubCommitFromAuthenticatedPost(request, env);
 
@@ -30,9 +32,22 @@ export async function onRequestPost(context) {
     if (env.DEV) {
       authorized = true;
     } else {
-      authorized = await authorizationTokenVerification(
-        params.get("access_token"),
-      );
+      let token = "";
+      const formDataToken = formData.get("access_token");
+      const headerToken = headers.get("Authorization");
+      token = formDataToken ?? "";
+      if (!token && headerToken.length) {
+        const splitArr = headerToken.split("Bearer: ");
+        if (splitArr.length > 1) {
+          token = splitArr[1];
+        }
+      }
+      if (token) {
+        authorized = await authorizationTokenVerification(
+          formData.get("access_token"),
+        );
+      }
+      throw new Error("No Acceptable Token");
     }
   } catch (e) {
     return new Response("Not Authorized >:^(", {
