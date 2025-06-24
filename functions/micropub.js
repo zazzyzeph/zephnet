@@ -46,8 +46,12 @@ export async function onRequestPost(context) {
         authorized = await authorizationTokenVerification(
           formData.get("access_token"),
         );
+      } else {
+        throw new Error(
+          "authorizationTokenVerification didn't throw. Token: " + token,
+        );
       }
-      throw new Error("Token: " + token);
+      // throw new Error("Token: " + token);
     }
   } catch (e) {
     let keys = "";
