@@ -37,7 +37,7 @@ export async function onRequestPost(context) {
       const headerToken = headers.get("Authorization");
       token = formDataToken ?? "";
       if (!token && headerToken.length) {
-        const splitArr = headerToken.split("Bearer: ");
+        const splitArr = headerToken.split("Bearer ");
         if (splitArr.length > 1) {
           token = splitArr[1];
         }
@@ -54,7 +54,7 @@ export async function onRequestPost(context) {
     for (const key of formData.keys()) {
       keys += " " + key;
     }
-    return new Response("Not Authorized >:^( - formData: " + keys, {
+    return new Response("Not Authorized >:^( - token: " + token, {
       status: 403,
     });
   }
