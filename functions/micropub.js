@@ -51,7 +51,7 @@ export async function onRequestPost(context) {
     }
   } catch (e) {
     let keys = "";
-    for (const key of formData.keys) {
+    for (const key of formData.keys()) {
       keys += " " + key;
     }
     return new Response("Not Authorized >:^( - formData: " + keys, {
