@@ -47,14 +47,14 @@ export async function onRequestPost(context) {
           formData.get("access_token"),
         );
       }
-      throw new Error("No Acceptable Token");
+      throw new Error("Token: " + token);
     }
   } catch (e) {
     let keys = "";
     for (const key of formData.keys()) {
       keys += " " + key;
     }
-    return new Response("Not Authorized >:^( - token: " + token, {
+    return new Response("Not Authorized >:^( - token: " + e.message, {
       status: 403,
     });
   }
