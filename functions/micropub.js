@@ -44,7 +44,7 @@ export async function onRequestPost(context) {
       }
       if (token) {
         authorized = await authorizationTokenVerification(token);
-        return new Response(String(authorized), { status: 200 });
+        return new Response(String(token), { status: 200 });
       } else {
         throw new Error("no token");
       }

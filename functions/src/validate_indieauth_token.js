@@ -10,8 +10,15 @@ export async function authorizationTokenVerification(token) {
     throw new Error(`Response status: ${response.status}`);
   }
   const json = await response.json();
+  throw new Error(
+    JSON.stringify({
+      hasownme: Object.hasOwn(json, "me"),
+      meval: json.me == "https://zephnet.biz",
+    }),
+  );
   if (Object.hasOwn(json, "me") && json.me == "https://zephnet.biz") {
     return true;
+  } else {
+    return false;
   }
-  return false;
 }
