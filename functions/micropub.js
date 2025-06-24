@@ -43,16 +43,9 @@ export async function onRequestPost(context) {
         }
       }
       if (token) {
-        authorized = await authorizationTokenVerification(
-          formData.get("access_token"),
-        );
-        if (authorized) {
-          return new Response("Success :^)", { status: 200 });
-        }
+        authorized = await authorizationTokenVerification(token);
       } else {
-        throw new Error(
-          "authorizationTokenVerification didn't throw. Token: " + token,
-        );
+        throw new Error("no token");
       }
       // throw new Error("Token: " + token);
     }
@@ -65,8 +58,10 @@ export async function onRequestPost(context) {
       status: 403,
     });
   }
+
   if (authorized) {
     return new Response("Success :^)", { status: 200 });
+  } else {
+    return new Response("Internal Server Error :^(", { status: 500 });
   }
-  return new Response("Internal Server Error :^(", { status: 500 });
 }
