@@ -50,7 +50,11 @@ export async function onRequestPost(context) {
       throw new Error("No Acceptable Token");
     }
   } catch (e) {
-    return new Response("Not Authorized >:^(", {
+    let keys = "";
+    for (const key of formData.keys) {
+      keys += " " + key;
+    }
+    return new Response("Not Authorized >:^( - formData: " + keys, {
       status: 403,
     });
   }
