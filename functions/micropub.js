@@ -16,18 +16,17 @@ export async function onRequestPost(context) {
   // const response = githubCommitFromAuthenticatedPost(request, env);
 
   // Resource is a ReadableStream, with the contents being a url param string
-  let text = await request.text();
-  let params = new URLSearchParams(text);
+  const formData = await request.formData();
 
   // make sure we have the bare minimum for a a post (token, content, object type being created (h=entry probably))
   const requiredKeysArr = ["access_token", "content", "h"];
-  const hasRequiredKeys = requiredKeysArr.every((item) => params.has(item));
+  const hasRequiredKeys = requiredKeysArr.every((item) => formData.has(item));
 
   if (!hasRequiredKeys) {
-    return new Response("Bad Request: " + params.toString(), { status: 400 });
+    return new Response("Bad Request", { status: 400 });
   }
+  let authorized = false;
   try {
-    let authorized = false;
     if (env.DEV) {
       authorized = true;
     } else {
