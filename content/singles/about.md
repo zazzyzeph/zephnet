@@ -6,16 +6,15 @@ type: singles
 layout: about
 ---
 
-Hi! I'm Zephyr. Professionally, I am a web developer at [Adafruit](https://adafruit.com).
+Hi! I'm Zephyr. Professionally, I am a web developer. Unsurprisingly, I'm a big nerd.
 
 This website is on a .biz domain and as such is for **[bona fide business or commercial purposes](https://www.icann.org/resources/unthemed-pages/registry-agmt-appl-2001-04-18-en.html)**.
 
-To that end I am **minding my own business**, but may speak of it here. topics may include:
+To that end I am **minding my own business**, but may speak of it here. Topics may include:
+- Livecoding with [TidalCycles](https://tidalcycles.org)
 - Hydroponic gardening
-- Infosec
-- Bike stuff
-- Synthesizers and tracker sequencers
-- Hardware projects, usually involving [Teensy boards](https://www.pjrc.com/) or [Raspberry Pis](https://www.raspberrypi.org/)
+- Living the .biz lifestyle
+- Hardware projects
 
 ## About the site
 
