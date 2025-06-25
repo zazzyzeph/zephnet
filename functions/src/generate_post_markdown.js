@@ -6,7 +6,7 @@ export function generatePostMarkdown(
   tags = [],
 ) {
   const date = new Date();
-  dateString = date.toISOString();
+  const dateString = date.toISOString();
 
   title = title ?? "{{ .File.UniqueID }}";
   let md = ` 
