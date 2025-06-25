@@ -63,18 +63,38 @@ export async function onRequestPost(context) {
   }
 
   if (authorized) {
+    // for the markdown filename/post link - make a date in the format YYYY-MM-DD_HH-MM-SS
+    // i know this is goofy but i don't like JS's built in date/time formats :^)
+    let date = new Date();
+    let dateString =
+      date.getFullYear() +
+      "-" +
+      (date.getMonth() + 1).toString().padStart(2, "0") +
+      "-" +
+      date.getDate().toString().padStart(2, "0") +
+      "_" +
+      date.getHours().toString().padStart(2, "0") +
+      "-" +
+      date.getMinutes().toString().padStart(2, "0") +
+      "-" +
+      date.getSeconds().toString().padStart(2, "0");
+
     try {
       const title = formData.get("mp-slug");
       const content = formData.get("content");
       const postMd = generatePostMarkdown(title, content);
-      await githubCommitFromAuthenticatedPost(request, env, postMd);
+      await githubCommitFromAuthenticatedPost(request, env, postMd, dateString);
     } catch (e) {
       return new Response("Internal Server Error :^( error: " + e.message, {
         status: 500,
       });
     }
-    return new Response("Success :^)", { status: 200 });
+    return new Response("Success :^)", {
+      status: 200,
+      headers: { Location: "https://zephnet.biz/posts/" + dateString },
+    });
   } else {
+    //  we shouldn'tve gotten here
     return new Response("Internal Server Error :^(", { status: 500 });
   }
 }
