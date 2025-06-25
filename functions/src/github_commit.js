@@ -61,7 +61,7 @@ export async function githubCommitFromAuthenticatedPost(request, env, postMd) {
       fileChanges: {
         additions: [
           {
-            path: fileName,
+            path: "content/posts/" + fileName,
             contents: encodedContent,
           },
         ],
