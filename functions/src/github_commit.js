@@ -47,6 +47,7 @@ export async function githubCommitFromAuthenticatedPost(request, env, postMd) {
     `;
 
   // variables object for the gh request body
+  // expectedHeadOid - github expects the SHA value of the current commit (before we push this new one)
   const variables = {
     input: {
       branch: {
@@ -79,7 +80,7 @@ export async function githubCommitFromAuthenticatedPost(request, env, postMd) {
     headers: {
       Authorization: `Bearer ${GH_TOKEN}`,
       "Content-Type": "application/json",
-      "User-Agent": "Micropub/1.0",
+      "User-Agent": "zndb/1.0",
     },
     body: JSON.stringify({
       query: mutation,
@@ -97,7 +98,7 @@ export async function githubCommitFromAuthenticatedPost(request, env, postMd) {
   return true;
 }
 
-// Helper function to get the latest commit SHA for a specific branch
+// Helper function to get the latest commit SHA for the requested branch
 async function getLatestCommitSha(token, owner, repo, branchName) {
   const query = `
     query GetLatestCommit($owner: String!, $repo: String!, $branchName: String!) {
@@ -116,7 +117,7 @@ async function getLatestCommitSha(token, owner, repo, branchName) {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      "User-Agent": "Micropub-Handler/1.0",
+      "User-Agent": "zndb/1.0",
     },
     body: JSON.stringify({
       query: query,
