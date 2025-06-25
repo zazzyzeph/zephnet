@@ -1,6 +1,6 @@
 export function generatePostMarkdown(
-  content = "",
   title = "",
+  content = "",
   image = false,
   alt = false,
   tags = [],
