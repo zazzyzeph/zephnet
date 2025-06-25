@@ -13,5 +13,7 @@ export async function authorizationTokenVerification(token) {
   if (Object.hasOwn(json, "me") && json.me == "https://zephnet.biz/") {
     return true;
   }
-  return false;
+  throw new Error(
+    `generic error from authorization function - indieauth did not respond`,
+  );
 }

@@ -14,7 +14,7 @@ export async function onRequestPost(context) {
 
   const headers = new Headers();
 
-  // this is currently a test function - it makes a markdown file, thats it -- 2025-06-15
+  // below line is currently a test function - it makes a markdown file, thats it -- 2025-06-15
   // const response = githubCommitFromAuthenticatedPost(request, env);
 
   // Resource is a ReadableStream, with the contents being a url param string
@@ -25,13 +25,17 @@ export async function onRequestPost(context) {
   const hasRequiredKeys = requiredKeysArr.every((item) => formData.has(item));
 
   if (!hasRequiredKeys) {
-    return new Response("Bad Request", { status: 400 });
+    return new Response("Bad Request :^O", { status: 400 });
   }
   let authorized = false;
   try {
     if (env.DEV) {
+      // set DEV=true in .dev.vars on vm (only!) to bypass auth checks for development
       authorized = true;
     } else {
+      // otherwise, time to check with indieauth's token endpoint
+      // token can either come as a field in the body (access_token=>XXXXXXX)
+      // or in the Authorization header (Bearer XXXXXXXXXX)
       let token = "";
       const formDataToken = formData.get("access_token");
       const headerToken = headers.get("Authorization");
@@ -44,18 +48,16 @@ export async function onRequestPost(context) {
       }
       if (token) {
         authorized = await authorizationTokenVerification(token);
-        return new Response(String(token), { status: 200 });
       } else {
         throw new Error("no token");
       }
-      // throw new Error("Token: " + token);
     }
   } catch (e) {
     let keys = "";
     for (const key of formData.keys()) {
       keys += " " + key;
     }
-    return new Response("Not Authorized >:^( - token: " + e.message, {
+    return new Response("Not Authorized >:^( - error: " + e.message, {
       status: 403,
     });
   }
