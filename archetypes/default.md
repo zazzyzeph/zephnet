@@ -2,8 +2,8 @@
 title: "{{ replace .Name "-" " " | title }}"
 type: "posts"
 date: {{ .Date }}
-featured_image: false
-featured_image_alt: false
+featured_image: null
+featured_image_alt: null
 tags: []
 params:
     likes:
