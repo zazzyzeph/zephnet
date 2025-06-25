@@ -1,4 +1,4 @@
-export async function generatePostMarkdown(
+export function generatePostMarkdown(
   content = "",
   title = "",
   image = false,
