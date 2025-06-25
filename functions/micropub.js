@@ -15,9 +15,6 @@ export async function onRequestPost(context) {
 
   const headers = new Headers();
 
-  // below line is currently a test function - it makes a markdown file, thats it -- 2025-06-15
-  // const response = githubCommitFromAuthenticatedPost(request, env);
-
   // Resource is a ReadableStream, with the contents being a url param string
   const formData = await request.formData();
 
@@ -60,10 +57,6 @@ export async function onRequestPost(context) {
       }
     }
   } catch (e) {
-    let keys = "";
-    for (const key of formData.keys()) {
-      keys += " " + key;
-    }
     return new Response("Not Authorized >:^( - error: " + e.message, {
       status: 403,
     });

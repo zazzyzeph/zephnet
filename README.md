@@ -34,3 +34,13 @@ To run the site
 ```
 npx wrangler pages dev --local-protocol=https ./public
 ```
+## Roadmap
+
+- [x] bespoke hugo theme
+- [x] make a commit on github from a POST request
+- [x] verify an indieauth token from an authenticated client 
+- [x] create a post from an micropub client
+- [ ] image handling with cloudflare images
+- [ ] micropub an event (to test endpoint handling and generated markup)
+- [ ] webmention support for events
+- [ ] bridgyfed
