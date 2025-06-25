@@ -1,5 +1,6 @@
 import { githubCommitFromAuthenticatedPost } from "./src/github_commit.js";
 import { authorizationTokenVerification } from "./src/validate_indieauth_token.js";
+import { generatePostMarkdown } from "./src/generate_post_markdown.js";
 
 // i mentioned in my /about page that i would take the address of the micropub address to my grave.
 // funny message 4 the hackers
@@ -20,11 +21,17 @@ export async function onRequestPost(context) {
   // Resource is a ReadableStream, with the contents being a url param string
   const formData = await request.formData();
 
-  // make sure we have the bare minimum for a a post (token, content, object type being created (h=entry probably))
-  const requiredKeysArr = ["access_token", "content", "h"];
-  const hasRequiredKeys = requiredKeysArr.every((item) => formData.has(item));
+  // make sure we have the bare minimum for a a post (token, content (or image + alt), object type being created (h=entry probably))
+  const requiredKeysArrText = ["access_token", "content", "h"];
+  const requiredKeysArrImage = ["access_token", "photo", "h"];
+  const hasRequiredKeysText = requiredKeysArrText.every((item) =>
+    formData.has(item),
+  );
+  const hasRequiredKeysImage = requiredKeysArrImage.every((item) =>
+    formData.has(item),
+  );
 
-  if (!hasRequiredKeys) {
+  if (!hasRequiredKeysText && !hasRequiredKeysImage) {
     return new Response("Bad Request :^O", { status: 400 });
   }
   let authorized = false;
@@ -63,6 +70,16 @@ export async function onRequestPost(context) {
   }
 
   if (authorized) {
+    try {
+      const title = formData.get("mp-slug");
+      const content = formData.get("content");
+      const postMd = generatePostMarkdown(title, content);
+      githubCommitFromAuthenticatedPost(request, env, postMd);
+    } catch (e) {
+      return new Response("Internal Server Error :^( error: " + e.message, {
+        status: 500,
+      });
+    }
     return new Response("Success :^)", { status: 200 });
   } else {
     return new Response("Internal Server Error :^(", { status: 500 });
