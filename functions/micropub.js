@@ -74,7 +74,7 @@ export async function onRequestPost(context) {
       const title = formData.get("mp-slug");
       const content = formData.get("content");
       const postMd = generatePostMarkdown(title, content);
-      githubCommitFromAuthenticatedPost(request, env, postMd);
+      await githubCommitFromAuthenticatedPost(request, env, postMd);
     } catch (e) {
       return new Response("Internal Server Error :^( error: " + e.message, {
         status: 500,
