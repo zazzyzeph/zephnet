@@ -7,9 +7,7 @@ export async function githubCommitFromAuthenticatedPost(request, env, postMd) {
   const BRANCH = env.BRANCH || "main";
 
   if (!GH_TOKEN || !GH_USERNAME || !REPO) {
-    return new Response("missing github configuration variables", {
-      status: 500,
-    });
+    throw new Error("missing github configuration variables");
   }
 
   // i know this is goofy but i want a specific date format :^)
