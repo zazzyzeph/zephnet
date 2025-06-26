@@ -1,8 +1,11 @@
 DEV=true
 
-TOKEN=GitHubTokenString
-USERNAME=GitHubUsername
-REPO=NameOfTheRepo
-BRANCH=BranchToPushTo
-POSTS_MD_DIR=Directory/Of/Your/HugoPostsMarkdown
-POSTS_PUBLIC_DIR=Directory/In/Repo/WherePostsAreServedFrom
+GH_TOKEN=github_pat_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+GH_USERNAME=xxxxxxxxx
+REPO=xxxxxxx
+BRANCH=xxxxxxx
+POSTS_MD_DIR=content/posts
+POSTS_PUBLIC_DIR=public
+
+CLOUDFLARE_IMAGES_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CLOUDFLARE_ACCOUNT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
