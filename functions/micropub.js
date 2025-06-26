@@ -100,10 +100,10 @@ export async function onRequestPost(context) {
       let image_urls = [];
 
       if (formData.has("photo")) {
-        image_urls = await imagesToUrls(env, photo, dateString);
+        image_urls = await env.MEDIA_BUCKET.put("test", photo);
       }
 
-      throw new Error(image_urls);
+      throw new Error(JSON.stringify(image_urls));
 
       const content = formData.get("content");
       const postMd = generatePostMarkdown(title, content);
