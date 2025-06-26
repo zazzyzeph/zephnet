@@ -38,7 +38,7 @@ export async function onRequestPost(context) {
 
   // make sure we have the bare minimum for a a post (token, content (or image + alt), object type being created (h=entry probably))
   const requiredKeysArrText = ["content", "h"];
-  const requiredKeysArrImage = ["photo[]", "h"];
+  const requiredKeysArrImage = ["photo", "h"];
   const hasRequiredKeysText = requiredKeysArrText.every((item) =>
     formData.has(item),
   );
@@ -95,11 +95,11 @@ export async function onRequestPost(context) {
     try {
       const title = formData.get("mp-slug");
 
-      let photo = await formData.get("photo[]");
+      let photo = await formData.get("photo");
 
       let image_urls = [];
 
-      if (formData.has("photo[]")) {
+      if (formData.has("photo")) {
         image_urls = await imagesToUrls(env, photo, dateString);
       }
 
