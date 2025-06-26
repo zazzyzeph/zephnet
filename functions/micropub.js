@@ -100,7 +100,7 @@ export async function onRequestPost(context) {
       let image_urls = [];
 
       if (formData.has("photo")) {
-        image_urls = await env.MEDIA_BUCKET.put("test", photo);
+        image_urls = await env.MEDIA_BUCKET.put("test.png", photo);
       }
 
       throw new Error(JSON.stringify(image_urls));

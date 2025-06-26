@@ -1,9 +1,5 @@
-name = "micropub"
+name = "zephnet"
 pages_build_output_dir = "./public"
-main = "functions/micropub.js"
-env = { }
-compatibility_flags = [ "nodejs_compat" ]
-compatibility_date = "2024-09-23"
 [[r2_buckets]]
 binding = "MEDIA_BUCKET"
 bucket_name = "media"
