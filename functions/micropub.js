@@ -52,7 +52,7 @@ export async function onRequestPost(context) {
   }
 
   if (!hasRequiredKeysText && !hasRequiredKeysImage) {
-    return new Response("Bad Request :^O: " + keys, {
+    return new Response("Bad Request :^O keys:" + keys, {
       status: 400,
     });
   }
