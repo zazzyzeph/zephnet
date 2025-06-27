@@ -108,7 +108,7 @@ export async function onRequestPost(context) {
       await githubCommitFromAuthenticatedPost(request, env, postMd, dateString);
 
       return new Response("Success :^)", {
-        status: 200,
+        status: 201,
         headers: { Location: "https://zephnet.biz/posts/" + dateString },
       });
     } catch (e) {
