@@ -103,7 +103,7 @@ export async function onRequestPost(context) {
         image_urls = await env.MEDIA_BUCKET.put("test.png", photo);
       }
 
-      throw new Error(JSON.stringify(photo));
+      throw new Error(JSON.stringify(photo.bytes()));
 
       const content = formData.get("content");
       const postMd = generatePostMarkdown(title, content);
