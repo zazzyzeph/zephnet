@@ -95,15 +95,19 @@ export async function onRequestPost(context) {
     try {
       const title = formData.get("mp-slug");
 
-      let photo = await formData.get("photo");
+      const photo = formData.get("photo");
 
-      let image_urls = [];
+      // return new Response(
+      //   JSON.stringify({
+      //     name: photo.name,
+      //     type: photo.type,
+      //     size: photo.size,
+      //   }),
+      // );
 
       if (formData.has("photo")) {
-        image_urls = await env.MEDIA_BUCKET.put("test.png", photo);
+        image_urls = await env.MEDIA_BUCKET.put(photo.name, photo);
       }
-
-      throw new Error(JSON.stringify(photo.bytes()));
 
       const content = formData.get("content");
       const postMd = generatePostMarkdown(title, content);
