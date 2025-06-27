@@ -107,24 +107,17 @@ export async function onRequestPost(context) {
 
       if (formData.get("photo").name) {
         const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
+        throw new Error(JSON.stringify(r2response));
       }
-
-      throw new Error(JSON.stringify(r2response));
 
       const content = formData.get("content");
       const postMd = generatePostMarkdown(title, content);
 
       await githubCommitFromAuthenticatedPost(request, env, postMd, dateString);
     } catch (e) {
-      return new Response(
-        "Internal Server Error :^( error: " +
-          e.message +
-          " line: " +
-          e.lineNumber,
-        {
-          status: 500,
-        },
-      );
+      return new Response("Internal Server Error :^( error: " + e.message, {
+        status: 500,
+      });
     }
     return new Response("Success :^)", {
       status: 200,
