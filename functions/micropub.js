@@ -105,7 +105,7 @@ export async function onRequestPost(context) {
       //   }),
       // );
 
-      if (formData.has("photo")) {
+      if (photo) {
         const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
       }
 
