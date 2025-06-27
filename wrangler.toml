@@ -1,7 +1,7 @@
 name = "zephnet"
 pages_build_output_dir = "./public"
 compatibility_date = "2025-06-26"
-[env]
+[vars]
 GH_USERNAME = "zazzyzeph"
 REPO = "zephnet"
 BRANCH = "main"
