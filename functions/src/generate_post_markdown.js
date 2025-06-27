@@ -1,12 +1,15 @@
 export function generatePostMarkdown(
   title = "",
   content = "",
-  image = false,
-  alt = false,
+  image = null,
+  alt = null,
   tags = [],
 ) {
   const date = new Date();
   const dateString = date.toISOString();
+
+  const imageVar = image ? `"${image}"` : null;
+  const altVar = alt ? `"${alt}"` : null;
 
   title = title ?? "{{ .File.UniqueID }}";
   let md = ` 
@@ -14,8 +17,8 @@ export function generatePostMarkdown(
 title: "${title}"
 type: "posts"
 date: "${dateString}"
-featured_image: null
-featured_image_alt: null
+featured_image: ${imageVar}
+featured_image_alt: ${altVar}
 tags: []
 params:
     likes:

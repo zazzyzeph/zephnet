@@ -97,32 +97,24 @@ export async function onRequestPost(context) {
 
       const photo = formData.get("photo");
 
-      // return new Response(
-      //   JSON.stringify({
-      //     name: photo.name,
-      //     type: photo.type,
-      //     size: photo.size,
-      //   }),
-      // );
-
-      if (formData.get("photo").name) {
+      if (photo && photo.name) {
         const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
-        throw new Error(JSON.stringify(r2response));
       }
 
       const content = formData.get("content");
-      const postMd = generatePostMarkdown(title, content);
+      const postMd = generatePostMarkdown(title, content, photo);
 
       await githubCommitFromAuthenticatedPost(request, env, postMd, dateString);
+
+      return new Response("Success :^)", {
+        status: 200,
+        headers: { Location: "https://zephnet.biz/posts/" + dateString },
+      });
     } catch (e) {
       return new Response("Internal Server Error :^( error: " + e.message, {
         status: 500,
       });
     }
-    return new Response("Success :^)", {
-      status: 200,
-      headers: { Location: "https://zephnet.biz/posts/" + dateString },
-    });
   } else {
     //  we shouldn'tve gotten here
     return new Response("Internal Server Error :^(", { status: 500 });
