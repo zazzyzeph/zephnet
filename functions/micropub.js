@@ -96,13 +96,14 @@ export async function onRequestPost(context) {
       const title = formData.get("mp-slug");
 
       const photo = formData.get("photo");
-
+      let imgUrl = "";
       if (photo && photo.name) {
         const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
+        imgUrl = "https://media.zephnet.biz/" + photo.name;
       }
 
       const content = formData.get("content");
-      const postMd = generatePostMarkdown(title, content, photo);
+      const postMd = generatePostMarkdown(title, content, imgUrl);
 
       await githubCommitFromAuthenticatedPost(request, env, postMd, dateString);
 
