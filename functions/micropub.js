@@ -36,7 +36,7 @@ export async function onRequestPost(context) {
     });
   }
 
-  // make sure we have the bare minimum for a a post (token, content (or image + alt), object type being created (h=entry probably))
+  // make sure we have the bare minimum for a a post (token, content (or image + alt), object type being created (h=entry or h=event probably))
   const requiredKeysArrText = ["content", "h"];
   const requiredKeysArrImage = ["photo", "h"];
   const hasRequiredKeysText = requiredKeysArrText.every((item) =>
@@ -93,24 +93,30 @@ export async function onRequestPost(context) {
       date.getSeconds().toString().padStart(2, "0");
 
     try {
-      const title = formData.get("mp-slug");
+      if (formData.get("h") == "entry") {
+        const title = formData.get("mp-slug");
+        const photo = formData.get("photo");
+        let imgUrl = "";
+        if (photo && photo.name) {
+          const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
+          imgUrl = "https://media.zephnet.biz/" + photo.name;
+        }
 
-      const photo = formData.get("photo");
-      let imgUrl = "";
-      if (photo && photo.name) {
-        const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
-        imgUrl = "https://media.zephnet.biz/" + photo.name;
+        const content = formData.get("content");
+        const postMd = generatePostMarkdown(title, content, imgUrl);
+
+        await githubCommitFromAuthenticatedPost(
+          request,
+          env,
+          postMd,
+          dateString,
+        );
+
+        return new Response("Success :^)", {
+          status: 202,
+          headers: { Location: "https://zephnet.biz/posts/" + dateString },
+        });
       }
-
-      const content = formData.get("content");
-      const postMd = generatePostMarkdown(title, content, imgUrl);
-
-      await githubCommitFromAuthenticatedPost(request, env, postMd, dateString);
-
-      return new Response("Success :^)", {
-        status: 202,
-        headers: { Location: "https://zephnet.biz/posts/" + dateString },
-      });
     } catch (e) {
       return new Response("Internal Server Error :^( error: " + e.message, {
         status: 500,
