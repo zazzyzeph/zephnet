@@ -4,9 +4,12 @@ export function generatePostMarkdown(
   image = null,
   alt = null,
   tags = [],
+  dateIsoString = "",
 ) {
-  const date = new Date();
-  const dateString = date.toISOString();
+  if (!dateIsoString) {
+    date = new Date();
+    const dateIsoString = date.toISOString();
+  }
 
   const imageVar = image ? `"${image}"` : null;
   const altVar = alt ? `"${alt}"` : null;
@@ -16,7 +19,7 @@ export function generatePostMarkdown(
 ---
 title: "${title}"
 type: "posts"
-date: "${dateString}"
+date: "${dateIsoString}"
 featured_image: ${imageVar}
 featured_image_alt: ${altVar}
 tags: []

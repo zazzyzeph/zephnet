@@ -1,4 +1,5 @@
 export async function imagesToUrls(env, photo, dateString) {
+  // this doesn't do anything for now, we're sending files straight to our cloudflare r2 bucket
   const cloudflare_account_id = env.CLOUDFLARE_ACCOUNT_ID;
   const cloudflare_images_token = env.CLOUDFLARE_IMAGES_TOKEN;
   const cloudflare_images_url = `https://api.cloudflare.com/client/v4/accounts/${cloudflare_account_id}/images/v1`;

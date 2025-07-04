@@ -2,6 +2,7 @@ import { githubCommitFromAuthenticatedPost } from "./src/github_commit.js";
 import { authorizationTokenVerification } from "./src/validate_indieauth_token.js";
 import { generatePostMarkdown } from "./src/generate_post_markdown.js";
 import { imagesToUrls } from "./src/images.js";
+import { formToJson } from "./src/form_to_json.js";
 
 // i mentioned in my /about page that i would take the address of the micropub address to my grave.
 // funny message 4 the hackers
@@ -13,23 +14,43 @@ export async function onRequestGet(context) {
 export async function onRequestPost(context) {
   // split out the request and env objects from the context object with destructive assignment
   const { request, env } = context;
-
-  // Resource is a ReadableStream, with the contents being a url param string
-  const formData = await request.formData();
-
-  // token can either come as a field in the body (access_token=>XXXXXXX)
-  // or in the Authorization header (Bearer XXXXXXXXXX)
   let token = "";
-  const formDataToken = formData.get("access_token");
-  const headerToken = request.headers.get("Authorization");
-  token = formDataToken ?? "";
-  if (!token && headerToken) {
-    const splitArr = headerToken.split("Bearer ");
-    if (splitArr.length > 1) {
-      token = splitArr[1];
+  let body = {};
+
+  // detect if we're dealing with a json request or some type of form-*
+  const contentType = request.headers.get("content-type");
+  // populate the request body as a relatively uniform json object
+  if (contentType.includes("application/json")) {
+    body = JSON.stringify(await request.json());
+  } else if (contentType.includes("form")) {
+    // lets push all the formData into a json object, to keep things relatively consistent
+    const formData = await request.formData();
+    for (const entry of formData.entries()) {
+      body[entry[0]] = entry[1];
+    }
+    // if we have access_token, set it as the auth token
+    token = formData.get("access_token");
+  } else {
+    // we didn't get an appropriate content type. that's a bad request!
+    return new Response("Bad Request :^O", {
+      status: 400,
+    });
+  }
+
+  // token can either come as a field in the request body and might already be set by the above code (form-types only) (access_token=>XXXXXXX)
+  // otherwise it'd be in the Authorization header (Bearer XXXXXXXXXX) (json request, probably)
+  // but in theory it could be both
+  if (!token) {
+    const headerToken = request.headers.get("Authorization");
+    if (!token && headerToken) {
+      const splitArr = headerToken.split("Bearer ");
+      if (splitArr.length > 1) {
+        token = splitArr[1];
+      }
     }
   }
 
+  // by now the token var should be set
   if (!token) {
     return new Response("Not Authorized >:^(", {
       status: 403,
@@ -39,23 +60,18 @@ export async function onRequestPost(context) {
   // make sure we have the bare minimum for a a post (token, content (or image + alt), object type being created (h=entry or h=event probably))
   const requiredKeysArrText = ["content", "h"];
   const requiredKeysArrImage = ["photo", "h"];
-  const hasRequiredKeysText = requiredKeysArrText.every((item) =>
-    formData.has(item),
+  const hasRequiredKeysText = requiredKeysArrText.every((item) => item in body);
+  const hasRequiredKeysImage = requiredKeysArrImage.every(
+    (item) => item in body,
   );
-  const hasRequiredKeysImage = requiredKeysArrImage.every((item) =>
-    formData.has(item),
-  );
-  let keys = "";
-  let keyArr = formData.keys();
-  for (const key of keyArr) {
-    keys += " " + key;
-  }
 
   if (!hasRequiredKeysText && !hasRequiredKeysImage) {
-    return new Response("Bad Request :^O keys:" + keys, {
+    return new Response("Bad Request :^O", {
       status: 400,
     });
   }
+
+  // AUTHORIZATION
   let authorized = false;
   try {
     if (env.DEV) {
@@ -93,18 +109,24 @@ export async function onRequestPost(context) {
       date.getSeconds().toString().padStart(2, "0");
 
     try {
-      if (formData.get("h") == "entry") {
-        const title = formData.get("mp-slug");
-        const photo = formData.get("photo");
-        let imgUrl = "";
+      if (body["h"] == "entry") {
+        const title = body["mp-slug"];
+        const photo = body["photo"];
+        const photoFile = body["photo"].name;
+        body["photoFile"] = photoFile;
+        let imgUrl = null;
         if (photo && photo.name) {
           const r2response = await env.MEDIA_BUCKET.put(photo.name, photo);
           imgUrl = "https://media.zephnet.biz/" + photo.name;
         }
 
-        const content = formData.get("content");
+        const content = body["content"];
         const postMd = generatePostMarkdown(title, content, imgUrl);
 
+        // for debugging in production :) from micropub clients (quill is the only thing i post with atm)
+        // return new Response(JSON.stringify(body), {
+        //   status: 500,
+        // });
         await githubCommitFromAuthenticatedPost(
           request,
           env,
@@ -117,6 +139,9 @@ export async function onRequestPost(context) {
           headers: { Location: "https://zephnet.biz/posts/" + dateString },
         });
       }
+      return new Response("Internal Server Error :^(" + e.message, {
+        status: 500,
+      });
     } catch (e) {
       return new Response("Internal Server Error :^( error: " + e.message, {
         status: 500,

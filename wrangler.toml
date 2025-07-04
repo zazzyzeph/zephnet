@@ -14,3 +14,7 @@ HUGO_VERSION = "0.147.9"
 [[r2_buckets]]
 binding = "MEDIA_BUCKET"
 bucket_name = "media"
+[[d1_databases]]
+binding = "db"
+database_name = "zephnet_db"
+database_id = "a6482bac-1756-436c-b82b-e53c7f4cdd1a"
