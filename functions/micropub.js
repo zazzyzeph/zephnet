@@ -1,9 +1,10 @@
 import { githubCommitFromAuthenticatedPost } from "./src/github_commit.js";
 import { authorizationTokenVerification } from "./src/validate_indieauth_token.js";
-import { generatePostMarkdown } from "./src/generate_post_markdown.js";
+import { generateEntryMarkdown } from "./src/generate_entry_markdown.js";
 // import { imagesToUrls } from "./src/images.js";
 import { formToJson } from "./src/form_to_json.js";
-import { dateString } from "./src/datestring.js";
+import { dateStringFromDate } from "./src/datestring.js";
+import { validateFields } from "./src/validate_fields.js";
 
 export async function onRequestGet(context) {
   const { request, env } = context;
@@ -94,18 +95,10 @@ export async function onRequestPost(context) {
   }
 
   // make sure we have the bare minimum for a a post (token, content (or image + alt), object type being created (h=entry or h=event probably))
-  // TODO this is busted with the json switch! also split this into a new js function file
-  const requiredKeysArrText = ["content", "h"];
-  const requiredKeysArrImage = ["photo", "h"];
-  const hasRequiredKeysText = requiredKeysArrText.every(
-    (item) => item in body.properties,
-  );
-  const hasRequiredKeysImage = requiredKeysArrImage.every(
-    (item) => item in body.properties,
-  );
-
-  if (!hasRequiredKeysText && !hasRequiredKeysImage) {
-    return new Response("Bad Request :^O", {
+  try {
+    validateFields(body);
+  } catch (e) {
+    return new Response("Bad Request :^O error: " + e.message, {
       status: 400,
     });
   }
@@ -123,24 +116,49 @@ export async function onRequestPost(context) {
   if (authorized) {
     // for the markdown filename/post link - make a date in the format YYYY-MM-DD_HH-MM-SS
     // i know this is goofy but i don't like JS's built in date/time formats :^)
-    let date = new Date();
-    let dateString = dateString();
+    const date = new Date();
+    const dateString = dateStringFromDate(date);
 
     try {
-      if (body["h"] == "entry") {
-        const title = body["mp-slug"];
-        const photo = body["photo"];
-        const photoFile = body["photo"].name;
-        body["photoFile"] = photoFile;
-        let imgUrl = null;
-
-        const content = body["content"];
-        const postMd = generatePostMarkdown(title, content, imgUrl);
+      const type = body["type"];
+      const props = body["properties"];
+      if (type == "h-entry" || type == "h-event") {
+        if (type == "h-entry") {
+          if (props["photo"] && photo.hasOwnProperty("name")) {
+            return new Response(
+              "Bad Request :^O error: the photo should be a url",
+              {
+                status: 400,
+              },
+            );
+          }
+          const postMd = generateEntryMarkdown(
+            props["mp-slug"],
+            props["content"],
+            props["photo"],
+            props["alt"],
+          );
+        }
+        if (type == "h-event") {
+          const postMd = generateEventMarkdown(
+            props["name"],
+            props["start"],
+            props["end"],
+            props["location"],
+            props["summary"],
+          );
+        }
 
         // for debugging in production :) from micropub clients (quill is the only thing i post with atm)
         // return new Response(JSON.stringify(body), {
         //   status: 500,
         // });
+        // if (env.DEV) {
+        //   return new Response(JSON.stringify(postMd), {
+        //     status: 200,
+        //     headers: { Location: "https://zephnet.biz/posts/" + dateString },
+        //   });
+        // }
         await githubCommitFromAuthenticatedPost(
           request,
           env,

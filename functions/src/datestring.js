@@ -1,8 +1,8 @@
-export function dateString() {
+export function dateStringFromDate(date) {
   // make a string appropriate for a filename or url, out of the current date/time down to the second
   // looks like 2025-06-26_04-20-42
 
-  dateString =
+  const dateString =
     date.getFullYear() +
     "-" +
     (date.getMonth() + 1).toString().padStart(2, "0") +

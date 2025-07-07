@@ -1,4 +1,4 @@
-export function generatePostMarkdown(
+export function generateEntryMarkdown(
   title = "",
   content = "",
   image = null,
@@ -7,7 +7,7 @@ export function generatePostMarkdown(
   dateIsoString = "",
 ) {
   if (!dateIsoString) {
-    date = new Date();
+    const date = new Date();
     const dateIsoString = date.toISOString();
   }
 
