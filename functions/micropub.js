@@ -68,7 +68,7 @@ export async function onRequestPost(context) {
   // populate the request body as a relatively uniform json object
   let body = {};
   if (contentType.includes("application/json")) {
-    body = JSON.stringify(await request.json());
+    body = await request.json();
   } else if (contentType.includes("form")) {
     // lets push all the formData into a json object, to keep things relatively consistent
     const formData = await request.formData();
@@ -122,6 +122,7 @@ export async function onRequestPost(context) {
     try {
       const type = body["type"];
       const props = body["properties"];
+      let postMd = '';
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
           if (props["photo"] && photo.hasOwnProperty("name")) {
@@ -132,7 +133,7 @@ export async function onRequestPost(context) {
               },
             );
           }
-          const postMd = generateEntryMarkdown(
+          postMd = generateEntryMarkdown(
             props["mp-slug"],
             props["content"],
             props["photo"],
@@ -140,7 +141,7 @@ export async function onRequestPost(context) {
           );
         }
         if (type == "h-event") {
-          const postMd = generateEventMarkdown(
+          postMd = generateEventMarkdown(
             props["name"],
             props["start"],
             props["end"],
@@ -153,12 +154,14 @@ export async function onRequestPost(context) {
         // return new Response(JSON.stringify(body), {
         //   status: 500,
         // });
-        // if (env.DEV) {
-        //   return new Response(JSON.stringify(postMd), {
-        //     status: 200,
-        //     headers: { Location: "https://zephnet.biz/posts/" + dateString },
-        //   });
-        // }
+        
+        // if we're on dev, pretend that we made a post :^) 
+        if (env.DEV) {
+          return new Response(postMd, {
+            status: 202,
+            headers: { Location: "https://zephnet.biz/posts/" + dateString },
+          });
+        }
         await githubCommitFromAuthenticatedPost(
           request,
           env,

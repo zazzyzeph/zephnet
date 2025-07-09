@@ -1,5 +1,5 @@
 export function validateFields(body) {
-  const props = body.properties;
+  const props = body['properties'];
 
   const postTypes = {
     note: ["content"],
@@ -11,7 +11,7 @@ export function validateFields(body) {
   for (const type in postTypes) {
     if (
       postTypes[type].every((p) => {
-        return p in props && props[p].length > 0;
+        return props[p] && props[p].length > 0 && props[p][0].length;
       })
     ) {
       hasRequiredKeys = true;
