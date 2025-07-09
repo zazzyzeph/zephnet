@@ -1,5 +1,4 @@
 export async function githubCommitFromAuthenticatedPost(
-  request,
   env,
   postMd,
   dateString,
@@ -21,7 +20,7 @@ export async function githubCommitFromAuthenticatedPost(
   const fileContent = postMd;
 
   // github needs the new file's content to be a base64 blob
-  const encodedContent = btoa(unescape(encodeURIComponent(fileContent)));
+  const encodedContent = btoa(fileContent);
 
   // graphql mutation for CreateCommitOnBranch
   // sent as part of the gh request body

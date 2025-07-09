@@ -1,3 +1,5 @@
+import { dateStringFromDate } from "./datestring";
+
 export function generateEntryMarkdown(
   title = "",
   content = "",
@@ -6,9 +8,9 @@ export function generateEntryMarkdown(
   tags = [],
   dateIsoString = "",
 ) {
+  const date = new Date();
   if (!dateIsoString) {
-    const date = new Date();
-    const dateIsoString = date.toISOString();
+    dateIsoString = date.toISOString();
   }
 
   const imageVar = image ? `"${image}"` : null;

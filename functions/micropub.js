@@ -122,7 +122,7 @@ export async function onRequestPost(context) {
     try {
       const type = body["type"];
       const props = body["properties"];
-      let postMd = '';
+      let postMd = "";
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
           if (props["photo"] && photo.hasOwnProperty("name")) {
@@ -154,20 +154,15 @@ export async function onRequestPost(context) {
         // return new Response(JSON.stringify(body), {
         //   status: 500,
         // });
-        
-        // if we're on dev, pretend that we made a post :^) 
+
+        // if we're on dev, pretend that we made a post and return the markdown :^)
         if (env.DEV) {
           return new Response(postMd, {
             status: 202,
             headers: { Location: "https://zephnet.biz/posts/" + dateString },
           });
         }
-        await githubCommitFromAuthenticatedPost(
-          request,
-          env,
-          postMd,
-          dateString,
-        );
+        await githubCommitFromAuthenticatedPost(env, postMd, dateString);
 
         return new Response("Success :^)", {
           status: 202,
