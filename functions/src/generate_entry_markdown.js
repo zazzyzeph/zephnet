@@ -1,5 +1,3 @@
-import { dateStringFromDate } from "./datestring";
-
 export function generateEntryMarkdown(
   title = "",
   content = "",
@@ -13,10 +11,11 @@ export function generateEntryMarkdown(
     dateIsoString = date.toISOString();
   }
 
+  const tagsVar = JSON.stringify(tags);
+
   const imageVar = image ? `"${image}"` : null;
   const altVar = alt ? `"${alt}"` : null;
 
-  title = title ?? "{{ .File.UniqueID }}";
   let md = ` 
 ---
 title: "${title}"
@@ -24,7 +23,7 @@ type: "posts"
 date: "${dateIsoString}"
 featured_image: ${imageVar}
 featured_image_alt: ${altVar}
-tags: []
+tags: ${tagsVar}
 params:
     likes:
         total: 0

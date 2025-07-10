@@ -138,6 +138,7 @@ export async function onRequestPost(context) {
             props["content"],
             props["photo"],
             props["alt"],
+            props["category"],
           );
         }
         if (type == "h-event") {
