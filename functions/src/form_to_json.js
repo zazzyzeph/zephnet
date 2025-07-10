@@ -14,10 +14,19 @@ export function formToJson(formData, token) {
   }
 
   let jsonProperties = {};
-  // entries() returns an iterator of kv pairs
-  for (const entry of formData.entries()) {
-    // why are all values wrapped in array wrappers? i dunno, they just are.
-    jsonProperties[entry[0]] = [entry[1]];
+  let formDataKeys = [];
+  for (let entry of formData.entries()) {
+    // why are all property values for json micropub requests wrapped in array wrappers? i dunno, they just are.
+    // anyway, ditch the [] from the formData keys
+    if (typeof entry[0] == "string") {
+      entry[0] = entry[0].split("[]")[0];
+    }
+    if (formDataKeys.includes(entry[0])) {
+      jsonProperties[entry[0]].push(entry[1]);
+    } else {
+      jsonProperties[entry[0]] = [entry[1]];
+      formDataKeys.push(entry[0]);
+    }
   }
 
   let json = {
