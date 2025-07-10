@@ -17,5 +17,8 @@
   "scripts": {
     "dev": "wrangler pages dev --local-protocol=https ./public",
     "test": "node --test"
+  },
+  "dependencies": {
+    "prettier-plugin-go-template": "^0.0.15"
   }
 }
