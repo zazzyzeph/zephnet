@@ -137,7 +137,7 @@ export async function onRequestPost(context) {
             props["mp-slug"],
             props["content"],
             props["photo"],
-            props["alt"],
+            props["mp-photo-alt"],
             props["category"],
           );
         }

@@ -7,6 +7,12 @@
     - https://developers.cloudflare.com/images/upload-images/upload-file-worker/
     - worked with taking media straight from the formData (no media endpoint), need to check if quill will get the files to the media endpoint first and use the filenames in the posts
 - [x] make a post from [Quill](https://quill.p3k.io/)
+- [ ] micropub rocks tests
+    - [ ] photo post with a url reference for the photo
+    - [ ] post with html content
+    - [ ] 803: Rejects unauthenticated requests (post isn't created, but response still not to spec)
+    - [ ] 804: Rejects unauthorized access tokens (post isn't created, but response still not to spec)
+    - [ ] 805: Rejects multiple authentication methods (apparently this is not allowed per spec)
 - [ ] make an event post from quill
 
 ## Editing
