@@ -5,6 +5,7 @@ import { generateEntryMarkdown } from "./src/generate_entry_markdown.js";
 import { formToJson } from "./src/form_to_json.js";
 import { dateStringFromDate } from "./src/datestring.js";
 import { validateFields } from "./src/validate_fields.js";
+import { storeToDb } from "./src/store_to_db.js";
 
 export async function onRequestGet(context) {
   const { request, env } = context;
@@ -156,6 +157,11 @@ export async function onRequestPost(context) {
         //   status: 500,
         // });
 
+        const donk = await storeToDb(env, props);
+        return new Response(JSON.stringify(donk), {
+          status: 202,
+          headers: { Location: "https://zephnet.biz/posts/" + dateString },
+        });
         // if we're on dev, pretend that we made a post and return the markdown :^)
         if (env.DEV) {
           return new Response(postMd, {
