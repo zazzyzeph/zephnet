@@ -6,6 +6,7 @@ import { formToJson } from "./src/form_to_json.js";
 import { dateStringFromDate } from "./src/datestring.js";
 import { validateFields } from "./src/validate_fields.js";
 import { storeToDb } from "./src/store_to_db.js";
+import { remove, removeMultiple } from "./src/vendor/exifremove.js";
 
 export async function onRequestGet(context) {
   const { request, env } = context;
