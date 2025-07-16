@@ -1,52 +1,68 @@
-export async function storeToDb(env, props) {
-  const response = await env.db.prepare("SELECT * from posts;").run();
-  let {
-    filename,
-    title,
-    content,
-    image_url,
-    alt_text,
-    tags,
-    start_timestamp,
-    end_timestamp,
-    location,
-  } = props;
+export async function storeToDb(env, props, type, dateString) {
+  //const response = await env.db.prepare("SELECT rowid from posts;").run();
+  //return response.results;
+  const filename = dateString + ".md";
 
-  return response;
+  let preppedProps = {};
+
+  for (const prop in props) {
+    if (prop == "category") {
+      preppedProps[prop] = JSON.stringify(props[prop]);
+    } else if (Array.isArray(props[prop])) {
+      if (props[prop].length == 1) {
+        preppedProps[prop] = props[prop][0];
+      }
+      if (props[prop].length > 1) {
+        preppedProps[prop] = JSON.stringify(props[prop]);
+      }
+    } else {
+      preppedProps[prop] = props[prop];
+    }
+  }
+
+  preppedProps.h = type.toString().split("h-")[1];
+
+  let {
+    h = "",
+    title = "",
+    content = "",
+    image_url = "",
+    alt_text = "",
+    category = "",
+    start_timestamp = "",
+    end_timestamp = "",
+    location = "",
+  } = preppedProps;
+
+  if (title == "") {
+    let untitledNum = 1;
+    const dbResponse = await env.db
+      .prepare("SELECT rowid from posts order by rowid desc limit 1;")
+      .run();
+    if (dbResponse.results && dbResponse.results.length != 0) {
+      untitledNum = dbResponse.results[0]["rowid"] + 1;
+    }
+    title = "Untitled " + untitledNum;
+  }
+
   // json stringify will make our tags array a string
-  tags = JSON.stringify(tags);
+  category = JSON.stringify(category);
 
   const doot = await env.db
     .prepare(
-      `insert into posts (filename, title, content, image_url, alt_text, tags, start_timestamp, end_timestamp, location) values ("${filename}", "${title}", "${content}", "${image_url}", "${alt_text}", "${tags}", "${start_timestamp}", "${end_timestamp}", "${location}")`,
+      `insert into posts (filename, h, title, content, image_url, alt_text, category, start_timestamp, end_timestamp, location) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .bind(
+      filename,
+      h,
+      title,
+      content,
+      image_url,
+      alt_text,
+      category,
+      start_timestamp,
+      end_timestamp,
+      location,
     )
     .run();
-
-  const postTypes = {
-    note: ["content"],
-    photo: ["photo", "alt"],
-    event: ["name", "start", "end", "location", "summary"],
-  };
-
-  let hasRequiredKeys = false;
-  for (const type in postTypes) {
-    if (
-      postTypes[type].every((p) => {
-        return props[p] && props[p].length > 0 && props[p][0].length;
-      })
-    ) {
-      hasRequiredKeys = true;
-    }
-    if (type == "event") {
-      const start = new Date(props["start"]).getTime();
-      const end = new Date(props["end"]).getTime();
-      if (end > start) {
-        throw new Error("event end can't be before it starts");
-      }
-    }
-  }
-  if (hasRequiredKeys) {
-    return true;
-  }
-  throw new Error("required keys not found");
 }
