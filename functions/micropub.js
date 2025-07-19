@@ -118,6 +118,9 @@ export async function onRequestPost(context) {
   if (authorized) {
     // for the markdown filename/post link - make a date in the format YYYY-MM-DD_HH-MM-SS
     // i know this is goofy but i don't like JS's built in date/time formats :^)
+    return new Response(JSON.stringify(body.properties), {
+      status: 404,
+    });
     const date = new Date();
     const dateString = dateStringFromDate(date);
 
