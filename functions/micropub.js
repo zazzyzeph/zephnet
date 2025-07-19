@@ -89,6 +89,10 @@ export async function onRequestPost(context) {
     });
   }
 
+  return new Response(JSON.stringify(body.properties), {
+    status: 403,
+  });
+
   // by now the token var should be populated
   if (!token) {
     return new Response("Forbidden >:^(", {
