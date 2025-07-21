@@ -1,6 +1,7 @@
 import { githubCommitFromAuthenticatedPost } from "./src/github_commit.js";
 import { authorizationTokenVerification } from "./src/validate_indieauth_token.js";
 import { generateEntryMarkdown } from "./src/generate_entry_markdown.js";
+import { generateEventMarkdown } from "./src/generate_event_markdown.js";
 // import { imagesToUrls } from "./src/images.js";
 import { formToJson } from "./src/form_to_json.js";
 import { dateStringFromDate } from "./src/datestring.js";
@@ -89,10 +90,6 @@ export async function onRequestPost(context) {
     });
   }
 
-  return new Response(JSON.stringify(body.properties), {
-    status: 403,
-  });
-
   // by now the token var should be populated
   if (!token) {
     return new Response("Forbidden >:^(", {
@@ -122,9 +119,6 @@ export async function onRequestPost(context) {
   if (authorized) {
     // for the markdown filename/post link - make a date in the format YYYY-MM-DD_HH-MM-SS
     // i know this is goofy but i don't like JS's built in date/time formats :^)
-    return new Response(JSON.stringify(body.properties), {
-      status: 403,
-    });
     const date = new Date();
     const dateString = dateStringFromDate(date);
 
