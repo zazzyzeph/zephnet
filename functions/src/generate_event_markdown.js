@@ -1,33 +1,55 @@
-export function generateEventMarkdown(
-  name = "",
-  start = "",
-  end = "",
-  location = "",
-  summary = "",
-  tags = [],
-  dateIsoString = "",
-) {
+export function generateEventMarkdown(bodyProps) {
+  let { category: tags } = bodyProps;
+  let { name, start, end, content, location, dateIsoString } = bodyProps;
+  let {
+    name: locName,
+    latitude: locLatitude,
+    longitude: locLongitude,
+    "street-address": locStreetAddress,
+    locality: locLocality,
+    region: locRegion,
+    "country-name": locCountryName,
+  } = location.properties;
   if (!dateIsoString) {
     const date = new Date();
-    const dateIsoString = date.toISOString();
+    dateIsoString = date.toISOString();
   }
 
-  const imageVar = image ? `"${image}"` : null;
-  const altVar = alt ? `"${alt}"` : null;
+  const tagsVar = JSON.stringify(tags);
 
-  title = title ?? "{{ .File.UniqueID }}";
+  const startDate = new Date(start);
+  start = startDate.toISOString();
+
+  const endDate = new Date(end);
+  end = endDate.toISOString();
+
   let md = ` 
 ---
 title: "${name}"
 type: "events"
 date: "${dateIsoString}"
-tags: []
+category: ${tagsVar}
+location:
+  name: ${locName}
+  latitude: ${locLatitude}
+  longitude: ${locLongitude}
+  street_address: ${locStreetAddress}
+  locality: ${locLocality}
+  region: ${locRegion}
+  country_name: ${locCountryName}
 params:
-  start: ${start},
-  end: ${end},
-  location: ${location},
+  start: ${start}
+  end: ${end}
+  likes:
+    total: 0
+      bluesky: 0
+      mastodon: 0
+    comments:
+      total: 0
+      bluesky: 0
+      mastodon: 0
 ---
-${summary}
+${content}
 `;
   return md;
 }

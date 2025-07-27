@@ -1,5 +1,5 @@
 export function validateFields(body) {
-  const props = body['properties'];
+  const props = body["properties"];
 
   const postTypes = {
     note: ["content"],
@@ -19,7 +19,7 @@ export function validateFields(body) {
     if (type == "event") {
       const start = new Date(props["start"]).getTime();
       const end = new Date(props["end"]).getTime();
-      if (end > start) {
+      if (end < start) {
         throw new Error("event end can't be before it starts");
       }
     }

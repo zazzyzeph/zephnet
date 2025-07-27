@@ -136,22 +136,16 @@ export async function onRequestPost(context) {
               },
             );
           }
-          postMd = generateEntryMarkdown(
-            props["mp-slug"],
-            props["content"],
-            props["photo"],
-            props["mp-photo-alt"],
-            props["category"],
-          );
+          postMd = generateEntryMarkdown(props);
+          return new Response(postMd, {
+            status: 400,
+          });
         }
         if (type == "h-event") {
-          postMd = generateEventMarkdown(
-            props["name"],
-            props["start"],
-            props["end"],
-            props["location"],
-            props["summary"],
-          );
+          postMd = generateEventMarkdown(props);
+          return new Response(postMd, {
+            status: 400,
+          });
         }
 
         // for debugging in production :) from micropub clients (quill is the only thing i post with atm)

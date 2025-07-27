@@ -5,6 +5,7 @@ title: Zephnetdotbiz
 theme: himstagram
 contentDir: content
 publishDir: public
+timeZone: 'America/New_York'
 permalinks:
   singles: '/:title/'
 menu:

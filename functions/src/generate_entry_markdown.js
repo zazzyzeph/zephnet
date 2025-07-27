@@ -1,19 +1,20 @@
-export function generateEntryMarkdown(
-  title = "",
-  content = "",
-  image = null,
-  alt = null,
-  tags = [],
-  dateIsoString = "",
-) {
-  const date = new Date();
+export function generateEntryMarkdown(bodyProps) {
+  //title = "",
+  //content = "",
+  //image = null,
+  //alt = null,
+  //category = [],
+  //dateIsoString = "",
+  const { "mp-slug": title, "mp-photo-alt": alt } = bodyProps;
+  let { content, photo, category, dateIsoString } = bodyProps;
   if (!dateIsoString) {
+    const date = new Date();
     dateIsoString = date.toISOString();
   }
 
-  const tagsVar = JSON.stringify(tags);
+  const categoryVar = JSON.stringify(category);
 
-  const imageVar = image ? `"${image}"` : null;
+  const imageVar = photo ? `"${photo}"` : null;
   const altVar = alt ? `"${alt}"` : null;
 
   let md = ` 
@@ -23,7 +24,7 @@ type: "posts"
 date: "${dateIsoString}"
 featured_image: ${imageVar}
 featured_image_alt: ${altVar}
-tags: ${tagsVar}
+category: ${categoryVar}
 params:
     likes:
         total: 0
