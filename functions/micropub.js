@@ -136,9 +136,9 @@ export async function onRequestPost(context) {
             );
           }
           postMd = generateEntryMarkdown(props);
-          return new Response(postMd, {
-            status: 400,
-          });
+          // return new Response(postMd, {
+          //   status: 400,
+          // });
         }
         if (type == "h-event") {
           postMd = generateEventMarkdown(props);
