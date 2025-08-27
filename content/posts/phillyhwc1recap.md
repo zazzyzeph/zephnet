@@ -5,7 +5,7 @@ date: 2025-08-22T21:41:07-05:00
 draft: false
 featured_image: 'https://media.zephnet.biz/homebrewwebsiteclub1.jpg'
 featured_image_alt: 'Several persons seated around a rectangular picnic table, each with a laptop or desktop computer. The man nearest the camera (me) has e. coli but is not presenting symptoms thankfully.'
-tags: ['phillyhwc, 'homebrew website club', 'indieweb']
+tags: ['phillyhwc', 'homebrew website club', 'indieweb']
 params:
     likes:
         total: 0

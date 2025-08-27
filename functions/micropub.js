@@ -52,7 +52,6 @@ export async function onRequestGet(context) {
 }
 
 export async function onRequestPost(context) {
-  // split out the request and env objects from the context object with destructive assignment
   const { request, env } = context;
   let token = "";
 
