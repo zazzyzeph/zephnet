@@ -127,7 +127,7 @@ export async function onRequestPost(context) {
       let postMd = "";
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
-          if (props["photo"] && photo.hasOwnProperty("name")) {
+          if (props["photo"] && props["photo"].hasOwnProperty("name")) {
             return new Response(
               "Bad Request :^O error: the photo should be a url",
               {
