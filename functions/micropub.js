@@ -152,11 +152,11 @@ export async function onRequestPost(context) {
         //   status: 500,
         // });
 
-        const donk = await storeToDb(env, props, type, dateString);
-        return new Response(JSON.stringify(donk), {
-          status: 202,
-          headers: { Location: "https://zephnet.biz/posts/" + dateString },
-        });
+        // const donk = await storeToDb(env, props, type, dateString);
+        // return new Response(JSON.stringify(donk), {
+        //   status: 202,
+        //   headers: { Location: "https://zephnet.biz/posts/" + dateString },
+        // });
         // if we're on dev, pretend that we made a post and return the markdown :^)
         if (env.DEV) {
           return new Response(postMd, {
