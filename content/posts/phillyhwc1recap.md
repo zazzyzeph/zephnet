@@ -21,4 +21,6 @@ params:
 
 The first Philly Homebrew Website Club went great! Thanks everyone for coming and many thanks to [Iffy Books](https://iffybooks.net) for hosting!
 
-There's me in the bottom right, not knowing I had e. coli at the time 😩 Thankfully I wasn't *presenting symptoms* during the meetup, and I had a great time! Mostly better now!
+There's me in the bottom right, unaware that I had e. coli at the time 😩 Feeling better now!
+
+Unfortunately, the next one (scheduled for September 7th) is cancelled for related reasons. We'll pick back up in October!
