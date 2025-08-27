@@ -142,9 +142,9 @@ export async function onRequestPost(context) {
         }
         if (type == "h-event") {
           postMd = generateEventMarkdown(props);
-          return new Response(postMd, {
-            status: 400,
-          });
+          // return new Response(postMd, {
+          //   status: 400,
+          // });
         }
 
         // for debugging in production :) from micropub clients (quill is the only thing i post with atm)
