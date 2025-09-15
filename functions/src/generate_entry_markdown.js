@@ -1,21 +1,20 @@
-export function generateEntryMarkdown(bodyProps) {
-  //title = "",
-  //content = "",
-  //image = null,
-  //alt = null,
-  //category = [],
-  //dateIsoString = "",
-  const { "mp-slug": title, "mp-photo-alt": alt } = bodyProps;
+export function generateEntryMarkdown(bodyProps, dateString) {
+  let { "mp-slug": title, "mp-photo-alt": alt } = bodyProps;
   let { content, photo, category, dateIsoString } = bodyProps;
   if (!dateIsoString) {
     const date = new Date();
     dateIsoString = date.toISOString();
   }
 
-  const categoryVar = JSON.stringify(category);
+  let categoryVar = JSON.stringify(category);
+  categoryVar = categoryVar ? `"${categoryVar}"` : "[]";
 
   const imageVar = photo ? `"${photo}"` : null;
   const altVar = alt ? `"${alt}"` : null;
+
+  if (title == undefined) {
+    title = dateString;
+  }
 
   let md = ` 
 ---
