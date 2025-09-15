@@ -52,6 +52,7 @@ export async function onRequestPost(context) {
   if (contentType.includes("application/json")) {
     body = await request.json();
   } else if (contentType.includes("form")) {
+    let formData = await request.formData();
     body = formToJson(formData);
   } else {
     // we didn't get an appropriate content type. that's a bad request!

@@ -1,4 +1,4 @@
-export function formToJson(formData, token) {
+export function formToJson(formData) {
   // the json structure of a micropub creation request is pretty similar to the form-encoded/multipart request
   // the main differences are:
   // "h" => "entry" becomes 'type': 'h-entry'
