@@ -44,7 +44,7 @@ export async function onRequestGet(context) {
 
 export async function onRequestPost(context) {
   const { request, env } = context;
-  let token = tokenFromRequest(request);
+  const token = tokenFromRequest(request);
   // detect if we're dealing with a json request or some type of form-*
   const contentType = request.headers.get("content-type");
   // we want to standardize on the micropub json standard - converting a form-encoded request to json as needed
@@ -52,10 +52,6 @@ export async function onRequestPost(context) {
   if (contentType.includes("application/json")) {
     body = await request.json();
   } else if (contentType.includes("form")) {
-    // drop the authorization access_token before converting the form encoded request body to json
-    formData.delete("access_token");
-    // push all the formData into a json object, to keep things relatively consistent
-    // formToJson handles this, as well as converting some field names as needed.
     body = formToJson(formData);
   } else {
     // we didn't get an appropriate content type. that's a bad request!

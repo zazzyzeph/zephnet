@@ -6,12 +6,14 @@ export function formToJson(formData, token) {
   // all of the other key/value pairs end up in the 'properties' object
   // we should ingest and then delete the access_token kv pair before we feed the formData to this function
   // then store the 'h' => 'entry' value for 'type' later
-  // then delete 'h' from the formData so we can feed all the rest to the 'properties' object
+  // then delete 'h' and 'access_token' from the formData so we can feed all the rest to the 'properties' object
+  // (access_token should have been acquired by tokenFromRequest() and stored before this functions runs)
 
   const h = formData.get("h");
   if (h) {
     formData.delete("h");
   }
+  formData.delete("access_token");
 
   let jsonProperties = {};
   let formDataKeys = [];
