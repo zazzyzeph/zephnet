@@ -1,7 +1,7 @@
 import { githubCommitFromAuthenticatedPost } from "./src/github_commit.js";
 import {
-  authorizationTokenVerification,
   tokenFromRequest,
+  authorizationTokenVerification,
 } from "./src/indieauth.js";
 import { generateEntryMarkdown } from "./src/generate_entry_markdown.js";
 import { generateEventMarkdown } from "./src/generate_event_markdown.js";
@@ -15,7 +15,7 @@ import { mpErrorResponse } from "./src/error_responses.js";
 
 export async function onRequestGet(context) {
   const { request, env } = context;
-  const token = tokenFromRequest(request);
+  const token = await tokenFromRequest(request);
   if (!token) {
     return mpErrorResponse(400);
   }
@@ -44,7 +44,7 @@ export async function onRequestGet(context) {
 
 export async function onRequestPost(context) {
   const { request, env } = context;
-  const token = tokenFromRequest(request);
+  const token = await tokenFromRequest(request);
   // detect if we're dealing with a json request or some type of form-*
   const contentType = request.headers.get("content-type");
   // we want to standardize on the micropub json standard - converting a form-encoded request to json as needed

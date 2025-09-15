@@ -13,7 +13,7 @@ export async function onRequest(context) {
   const { request, env } = context;
   if (["PUT", "POST"].includes(request.method)) {
     const { request, env } = context;
-    const token = tokenFromRequest(request);
+    const token = await tokenFromRequest(request);
     if (!token) {
       return mpErrorResponse(401);
     }
