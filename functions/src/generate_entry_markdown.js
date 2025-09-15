@@ -7,7 +7,7 @@ export function generateEntryMarkdown(bodyProps, dateString) {
   }
 
   let categoryVar = JSON.stringify(category);
-  categoryVar = categoryVar ? `"${categoryVar}"` : "[]";
+  categoryVar = categoryVar ? `${categoryVar}` : "[]";
 
   const imageVar = photo ? `"${photo}"` : null;
   const altVar = alt ? `"${alt}"` : null;
