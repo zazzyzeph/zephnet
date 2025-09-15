@@ -51,5 +51,5 @@ params:
 ---
 ${content}
 `;
-  return md;
+  return md.trim();
 }

@@ -16,7 +16,7 @@ export function generateEntryMarkdown(bodyProps, dateString) {
     title = dateString;
   }
 
-  let md = ` 
+  let md = `
 ---
 title: "${title}"
 type: "posts"
@@ -36,5 +36,5 @@ params:
 ---
 ${content}
 `;
-  return md;
+  return md.trim();
 }
