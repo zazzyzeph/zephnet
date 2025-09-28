@@ -14,14 +14,6 @@ location:
 params:
   start: 2025-08-03T18:00:00.000Z
   end: 2025-08-03T20:00:00.000Z
-  likes:
-    total: 0
-    bluesky: 0
-    mastodon: 0
-  comments:
-    total: 0
-    bluesky: 0
-    mastodon: 0
 ---
 Join us at Iffy Books for Philly's first Homebrew Website Club! All skill levels are welcome. Together we'll discuss our plans for our websites, spend some time working toward our goals, and discussing the progress we've made and what went right or wrong.
 

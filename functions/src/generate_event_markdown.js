@@ -26,7 +26,7 @@ export function generateEventMarkdown(bodyProps) {
   let md = ` 
 ---
 title: "${name}"
-type: "events"
+type: "event"
 date: "${dateIsoString}"
 category: ${tagsVar}
 location:
@@ -40,14 +40,6 @@ location:
 params:
   start: ${start}
   end: ${end}
-  likes:
-    total: 0
-      bluesky: 0
-      mastodon: 0
-    comments:
-      total: 0
-      bluesky: 0
-      mastodon: 0
 ---
 ${content}
 `;

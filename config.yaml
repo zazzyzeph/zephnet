@@ -6,8 +6,11 @@ theme: himstagram
 contentDir: content
 publishDir: public
 timeZone: 'America/New_York'
+buildFuture: true
 permalinks:
   singles: '/:title/'
+params:
+  timeZone: 'America/New_York'
 menu:
   main:
     - name: Posts

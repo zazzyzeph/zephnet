@@ -23,16 +23,7 @@ type: "posts"
 date: "${dateIsoString}"
 featured_image: ${imageVar}
 featured_image_alt: ${altVar}
-category: ${categoryVar}
-params:
-    likes:
-        total: 0
-        bluesky: 0
-        mastodon: 0
-    comments:
-        total: 0
-        bluesky: 0
-        mastodon: 0
+tags: ${categoryVar}
 ---
 ${content}
 `;
