@@ -92,7 +92,8 @@ export async function onRequestPost(context) {
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
           if (props["photo"]) {
-            return mpErrorResponse(400);
+          return new Response(JSON.stringify(request), {
+            status: 400,
           }
           postMd = generateEntryMarkdown(props, dateString);
         }
