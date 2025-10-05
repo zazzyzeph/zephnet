@@ -1,6 +1,6 @@
 ---
 title: 'First'
-type: 'post'
+type: 'entry'
 date: 2024-12-28T14:50:07-05:00
 draft: false
 featured_image: '/images/test1.jpg'

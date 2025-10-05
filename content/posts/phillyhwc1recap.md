@@ -1,6 +1,6 @@
 ---
 title: 'Philly Homebrew Website Club Recap'
-type: 'post'
+type: 'entry'
 date: 2025-08-22T21:41:07-05:00
 draft: false
 featured_image: 'https://media.zephnet.biz/homebrewwebsiteclub1.jpg'
