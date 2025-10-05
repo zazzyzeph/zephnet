@@ -92,7 +92,7 @@ export async function onRequestPost(context) {
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
           if (props["photo"]) {
-            return new Response(JSON.stringify(request), {
+            return new Response(JSON.stringify(props), {
               status: 400,
             })
             return mpErrorResponse(400);
