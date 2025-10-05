@@ -23,7 +23,7 @@ export function generateEntryMarkdown(bodyProps, dateString) {
   let md = `
 ---
 title: "${title}"
-type: "posts"
+type: "post"
 date: "${dateIsoString}"
 featured_image: ${imageVar}
 featured_image_alt: ${altVar}
