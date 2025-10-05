@@ -10,7 +10,7 @@ export async function tokenFromRequest(request) {
     }
   }
   const contentType = request.headers.get("content-type");
-  if (!token && contentType.includes("form")) {
+  if (!token && contentType && contentType.includes("form")) {
     const formData = await request.formData();
     const formToken = formData.get("access_token");
     if (formToken) {

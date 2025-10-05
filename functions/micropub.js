@@ -15,7 +15,7 @@ import { mpErrorResponse } from "./src/error_responses.js";
 
 export async function onRequestGet(context) {
   const { request, env } = context;
-  const token = await tokenFromRequest(request);
+  const token = await tokenFromRequest(request, env);
   if (!token) {
     return mpErrorResponse(400);
   }
@@ -91,12 +91,6 @@ export async function onRequestPost(context) {
       let postMd = "";
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
-          if (props["photo"]) {
-            return new Response(JSON.stringify(props), {
-              status: 400,
-            })
-            return mpErrorResponse(400);
-          }
           postMd = generateEntryMarkdown(props, dateString);
         }
         if (type == "h-event") {
