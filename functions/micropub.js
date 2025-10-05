@@ -91,7 +91,7 @@ export async function onRequestPost(context) {
       let postMd = "";
       if (type == "h-entry" || type == "h-event") {
         if (type == "h-entry") {
-          if (props["photo"] && props["photo"].hasOwnProperty("name")) {
+          if (props["photo"]) {
             return mpErrorResponse(400);
           }
           postMd = generateEntryMarkdown(props, dateString);

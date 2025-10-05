@@ -12,6 +12,10 @@ export function generateEntryMarkdown(bodyProps, dateString) {
   const imageVar = photo ? `"${photo}"` : null;
   const altVar = alt ? `"${alt}"` : null;
 
+  if (imageVar) {
+    imageVar = 'https://media.zephnet.biz/' + photo.name;
+  }
+
   if (title == undefined) {
     title = dateString;
   }
