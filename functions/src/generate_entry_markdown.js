@@ -9,8 +9,8 @@ export function generateEntryMarkdown(bodyProps, dateString) {
   let categoryVar = JSON.stringify(category);
   categoryVar = categoryVar ? `${categoryVar}` : "[]";
 
-  const imageVar = photo ? `"${photo}"` : null;
-  const altVar = alt ? `"${alt}"` : null;
+  let imageVar = photo ? `"${photo}"` : null;
+  let altVar = alt ? `"${alt}"` : null;
 
   if (imageVar) {
     imageVar = 'https://media.zephnet.biz/' + photo.name;
