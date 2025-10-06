@@ -25,4 +25,7 @@ menu:
     - name: Tags
       url: /tags/
       weight: 4
-
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
