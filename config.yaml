@@ -29,3 +29,14 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+outputs:
+  home:
+  - html
+  - rss
+  section:
+  - html
+  - rss
+  taxonomy:
+  - html
+  term:
+  - html
