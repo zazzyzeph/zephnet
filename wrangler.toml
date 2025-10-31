@@ -1,3 +1,5 @@
+# NOTE - for custom domains - change your build command to (example) `hugo -b https://zephnet.biz`. This will override the https://random.pages.dev/ urls. They recommend using $CF_PAGES_URL but that does not work for the generated rss feeds (right now at least! 10-30-2025)
+
 name = "zephnet"
 pages_build_output_dir = "./public"
 compatibility_date = "2025-06-26"
