@@ -27,6 +27,10 @@ menu:
       weight: 4
 markup:
   goldmark:
+    parser:
+      attribute:
+        block: true
+        title: true
     renderer:
       unsafe: true
 outputs:
