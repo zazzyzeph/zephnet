@@ -15,6 +15,6 @@ Our router for this project was an [Orange Pi Zero 3](https://orangepi.net/produ
 
 ![Another view of the gathering in Rittenhouse Square. Young people working on their websites, which are being hosted on the small computer.](https://media.zephnet.biz/modelinternet2_2025-11-08.jpg)
 
-We spent a few hours setting up our 'domains' and serving websites to the local internet. We had flyers out and a few people (and a nice park ranger) came by to see what we were up too. They could connect to the network and see our websites, but they mostly wanted to chat about the 'old internet' and how they'd set up their pages on now-defunct social media platforms like Xanga, MySpace, and LiveJournal which had limited HTML editing support.
+We spent a few hours setting up our 'domains' and serving websites to the local internet. We had flyers out and a few people (and a nice park ranger) came by to see what we were up to. They could connect to the network and see our websites, but they mostly wanted to chat about the 'old internet' and how they'd set up their pages on now-defunct social media platforms like Xanga, MySpace, and LiveJournal which had limited HTML editing support.
 
 Anyway, it was a great time! Highly recommend checking out the schedule on [https://iffybooks.net](https://iffybooks.net) and coming by for the next one (which is 2025-12-13 as of this writing - [Model Internet Club Dec 2025 event page](https://iffybooks.net/event/model-internet-2025/2025-12-13/))
