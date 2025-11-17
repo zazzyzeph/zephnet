@@ -9,7 +9,7 @@ tags: ["iffy books", "model internet club"]
 
 Iffy Books hosts a recurring event called 'Model Internet Club', which of course usually takes place in the bookshop, but this time we took it out to Rittenhouse Square in Philadelphia for a beautiful fall morning of hosting and connecting to our own local 20-ish square meter internet.
 
-![A blue circuit board is affixed to the top of a small wooden box. Wires are plugged in to the circuit board, and are connected to a battery pack inside the box through a small hole.](https://media.zephnet.biz/modelinternet1_2025-11-08.jpg)
+![A blue circuit board is affixed to the top of a small wooden box. Wires are plugged in to the circuit board, and are connected to a battery pack inside the box through a small hole.](https://media.zephnet.biz/modelinternet3_2025-11-08.jpg)
 
 Our router for this project was an [Orange Pi Zero 3](https://orangepi.net/product/orange-pi-zero-3) running the [OpenWRT](https://openwrt.org/) firmware - this was an easy way to handle pretty much all of our networking - our DNS and DHCP, interface management (WiFi and Ethernet), firewall, etc. This was mounted to a box and powered by a small battery pack.
 
