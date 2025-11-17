@@ -40,7 +40,9 @@ This is an abridged example, pulled from my CSS:
 
 ### Define Variables
 
-I start with my preferred colors, no media queries applied:
+First, decide on which theme you prefer for users who haven’t set a dark-mode or light-mode preference in their OS settings. Personally, I like the way this site looks better in dark-mode.
+
+With that decided, start with your preferred-mode colors as the default, it'll save us some lines of code later.
 
 ```CSS
 :root {
@@ -108,11 +110,10 @@ I start with my preferred colors, no media queries applied:
 }
 ```
 ### Override Base Variables
-First, decide on which theme you prefer for users who haven't set a dark or light-theme preference in their OS settings. Personally, I like the way this site looks better in dark.
 
-With that decided, we can omit the `prefers-color-scheme: dark` (or `light`) `@media` queries because they're already in our base color variables.
+Since I used my 'dark mode' colors as the default, I omitted the `prefers-color-scheme: dark` `@media` queries.
 
-So for `dark`-preferring users, we only have to check for the high-contrast-preferring users, and override the color variables with the `high-contrast-dark` variables
+So for those who are also `dark`-preferring users, we only have to check for the high-contrast-preferring users, and override the color variables with the `high-contrast-dark` variables
 ```CSS
 @media (prefers-contrast: more) {
   :root {
@@ -130,7 +131,7 @@ So for `dark`-preferring users, we only have to check for the high-contrast-pref
 }
 ```
 
-For `light`, we override the base variables in `@media` queries based on their preferences
+And then for `light`-preferring users, we override the base variables in `@media` queries based on their preferences
 ```CSS
 @media (prefers-color-scheme: light) {
   :root {
@@ -164,7 +165,7 @@ Then, the combination `@media` queries for light + more contrast
     }
 }
 ```
-So that's about it! If you want to see how this looks on my site - click the 'gear' icon i have in my navigation menu, and try out the various combinations.
+So that's about it! If you want to see how this looks on my site - click the 'gear' icon i have in my navigation menu, and try out the various combinations. I use some JavaScript to override a users' OS preferences for each theme and/or contrast option.
 
 Part of why I started this site was to make it a playground for trying out all the new things widely supported by modern web browsers - I'm making a point to use only browser technologies - no frameworks or build tools.
 

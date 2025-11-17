@@ -28,7 +28,6 @@ menu:
 markup:
   highlight:
     style: gruvbox
-    lineNos: true
   goldmark:
     parser:
       attribute:
