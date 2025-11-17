@@ -26,6 +26,9 @@ menu:
       url: /tags/
       weight: 4
 markup:
+  highlight:
+    style: gruvbox
+    lineNos: true
   goldmark:
     parser:
       attribute:
