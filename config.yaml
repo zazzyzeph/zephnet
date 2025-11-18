@@ -1,4 +1,3 @@
-
 baseURL: 'https://zephnet.biz/'
 languageCode: en-us
 title: Zephnetdotbiz
@@ -11,6 +10,7 @@ permalinks:
   singles: '/:title/'
 params:
   timeZone: 'America/New_York'
+  description: 'Zephyr Prusinski is a web developer focused on web standards and accessibility, residing in Philadelphia. He can often be found hacking away in Iffy Books, and livecoding under the moniker Moon Pox.'
 menu:
   main:
     - name: Posts
