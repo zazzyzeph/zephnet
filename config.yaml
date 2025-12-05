@@ -15,15 +15,19 @@ menu:
   main:
     - name: Posts
       url: /
+      pre: posts
       weight: 1
     - name: About
       url: /about/
+      pre: about
       weight: 2
     - name: Plants
       url: /plants/
+      pre: plants
       weight: 3
     - name: Tags
       url: /tags/
+      pre: tags
       weight: 4
 markup:
   highlight:
