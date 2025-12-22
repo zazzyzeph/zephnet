@@ -9,7 +9,7 @@ tags: ["phillyhwc", "event", "iffy books", "indieweb", "homebrew website club", 
 
 <a href="https://news.indieweb.org/en" class="u-syndication">Also posted on IndieNews</a>
 
-The fourth edition of Homebrew Website Club - Philadelphia was packed! 12 people ended up coming out, and it was a bit chaotic but a good time nononetheless :)
+The fourth edition of Homebrew Website Club - Philadelphia was packed! 12 people ended up coming out, and it was a bit chaotic but a good time nonetheless :)
 
 Thanks as always to [Iffy Books](https://iffybooks.net) for hosting!
 
