@@ -1,7 +1,7 @@
 ---
 title: "Homebrew Website Club - Philadelphia"
 type: "event"
-date: "2025-01-02T15:11:19.697Z"
+date: "2026-01-02T15:11:19.697Z"
 tags: ["phillyhwc","homebrew website club","indieweb", "event"]
 location:
   name: Iffy Books
@@ -12,8 +12,8 @@ location:
   region: Pennsylvania
   country_name: US
 params:
-  start: 2025-01-04T23:00:00.000Z
-  end: 2025-12-04T01:00:00.000Z
+  start: 2026-01-04T23:00:00.000Z
+  end: 2026-01-04T01:00:00.000Z
 ---
 Homebrew Website Clubs are online and/or in-person meetups where we discuss designing and developing our personal websites as a way to take back our online identities and control our content. This is an in-person-only event.
 
