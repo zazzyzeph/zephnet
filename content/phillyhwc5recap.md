@@ -13,7 +13,7 @@ Homebrew Website Club - Philadelphia, 5th edition, was arguably the best one yet
 
 Thanks as always to [Iffy Books](https://iffybooks.net) for hosting!
 
-Notes are archived at https://indieweb.org/wiki/index.php?title=events/2026-01-04-hwc-philly
+Notes are archived at https://indieweb.org/events/2026-01-04-hwc-philly
 
 Here they are again anyway:
 
