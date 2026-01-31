@@ -1,7 +1,7 @@
 ---
 title: "Homebrew Website Club - Philadelphia"
 type: "event"
-date: "2026-02-01T10:11:19.697Z"
+date: "2026-01-31T10:11:19.697Z"
 tags: ["phillyhwc","homebrew website club","indieweb", "event"]
 location:
   name: Iffy Books
