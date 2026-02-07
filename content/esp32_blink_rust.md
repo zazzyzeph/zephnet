@@ -14,7 +14,7 @@ I mostly followed Espressif's [documentation for programming ESP boards using Ru
 
 Excited for the next [PHL Code Club](https://phlcode.club) talk by [Ben Corey](https://benjamincorey.ney) on Rust! Event details on Luma: [Rust for the Rest of Us](https://luma.com/adtkn9n8)
 
-My current goal is to get an eink display connected to this thing and have it show the current temp and chance of precipitation.
+My current goal is to get an eink display connected to this thing and have it show the current temp and chance of precipitation today.
 
 Here's my `main.rs` for this simple blink sketch, and it shouldn't be taken seriously :^)
 
@@ -91,11 +91,6 @@ fn main() -> ! {
     let sw_interrupt =
         esp_hal::interrupt::software::SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
     esp_rtos::start(timg0.timer0, sw_interrupt.software_interrupt0);
-    let radio_init = esp_radio::init().expect("Failed to initialize Wi-Fi/BLE controller");
-    let (mut _wifi_controller, _interfaces) =
-        esp_radio::wifi::new(&radio_init, peripherals.WIFI, Default::default())
-            .expect("Failed to initialize Wi-Fi controller");
-    let _connector = BleConnector::new(&radio_init, peripherals.BT, Default::default());
 
     led.set_high();
     loop {
