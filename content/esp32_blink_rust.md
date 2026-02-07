@@ -28,7 +28,8 @@ Here's my `main.rs` for this simple blink sketch, and it shouldn't be taken seri
 )]
 #![deny(clippy::large_stack_frames)] // microcontrollers have a small stack frame (a few kb), so don't put
                                      // too much on the stack
-                                     // initialization for our libraries
+
+// initialization for our libraries
 use core::cell::RefCell;
 use critical_section::Mutex;
 use esp_hal::clock::CpuClock;
