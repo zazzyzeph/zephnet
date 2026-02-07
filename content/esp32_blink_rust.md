@@ -1,7 +1,7 @@
 ---
 title: "ESP32 Rust First Step"
 type: "entry"
-date: 2026-02-07T11:50:05-05:00
+date: 2026-02-07T15:40:05-05:00
 featured_image: "https://media.zephnet.biz/esp32_led_blink.jpg"
 featured_video: "https://media.zephnet.biz/esp32_led_blink.mp4"
 featured_image_alt: "a small led shines a blue light. it is connected to a clear breadboard, and to a small black microcontroller. a piece of paper nearby lists the specs of the microcontroller"

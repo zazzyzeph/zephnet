@@ -50,4 +50,4 @@ Here they are again anyway:
   * richard here, did some digging, it was actually the Philadelphia Citywide Zine  that I was thinking of, not collide: https://philadelphiacitywide.com/#about 
   * Their 4th issue, which isn't on their website, but is on their instagram sigh: https://www.instagram.com/p/DSLodzgjU8S/
 
-Looking forward to the next one on 2025-02-08, same place same time!
+Looking forward to the next one on 2025-02-01, same place same time!
