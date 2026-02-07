@@ -1,7 +1,7 @@
 ---
 title: "ESP32 Rust First Step"
 type: "entry"
-date: 2026-02-07T15:40:05-05:00
+date: 2026-02-07T15:50:05-05:00
 featured_image: "https://media.zephnet.biz/esp32_led_blink.jpg"
 featured_video: "https://media.zephnet.biz/esp32_led_blink.mp4"
 featured_image_alt: "a small led shines a blue light. it is connected to a clear breadboard, and to a small black microcontroller. a piece of paper nearby lists the specs of the microcontroller"
@@ -18,6 +18,8 @@ My current goal is to get an eink display connected to this thing and have it sh
 
 Here's my `main.rs` for this simple blink sketch, and it shouldn't be taken seriously :^)
 
+Some comments are my own, some are from `esp-generate`
+
 ```rust
 #![no_std] // no rust std library
 #![no_main] // custom main function
@@ -26,8 +28,7 @@ Here's my `main.rs` for this simple blink sketch, and it shouldn't be taken seri
     reason = "mem::forget is generally not safe to do with esp_hal types, especially those \
     holding buffers for the duration of a data transfer."
 )]
-#![deny(clippy::large_stack_frames)] // microcontrollers have a small stack frame (a few kb), so don't put
-                                     // too much on the stack
+#![deny(clippy::large_stack_frames)] // avoids problems with large stack frames
 
 // initialization for our libraries
 use core::cell::RefCell;
@@ -95,7 +96,7 @@ fn main() -> ! {
 }
 ```
 
-and my `cargo.toml` which certainly has more packages than I need for this.
+and my `cargo.toml` which certainly has more packages than I need for this as I enabled bluetooth and wifi :^)
 
 ```toml
 [package]
