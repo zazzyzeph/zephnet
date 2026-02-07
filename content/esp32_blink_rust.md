@@ -28,7 +28,7 @@ Here's my `main.rs` for this simple blink sketch, and it shouldn't be taken seri
 )]
 #![deny(clippy::large_stack_frames)] // microcontrollers have a small stack frame (a few kb), so don't put
                                      // too much on the stack
-// initialization for our libraries
+                                     // initialization for our libraries
 use core::cell::RefCell;
 use critical_section::Mutex;
 use esp_hal::clock::CpuClock;
@@ -53,8 +53,6 @@ extern crate alloc;
 // For more information see: <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/app_image_format.html#application-description>
 esp_bootloader_esp_idf::esp_app_desc!();
 
-static BUTTON: Mutex<RefCell<Option<Input>>> = Mutex::new(RefCell::new(None));
-
 #[allow(
     clippy::large_stack_frames,
     reason = "it's not unusual to allocate larger buffers etc. in main"
@@ -72,14 +70,6 @@ fn main() -> ! {
     let mut io = Io::new(peripherals.IO_MUX);
 
     let mut led = Output::new(peripherals.GPIO2, Level::Low, OutputConfig::default());
-
-    cfg_if::cfg_if! {
-        if #[cfg(any(feature = "esp32", feature = "esp32s2", feature = "esp32s3"))] {
-            let button = peripherals.GPIO0;
-        } else {
-            let button = peripherals.GPIO9;
-        }
-    }
 
     esp_alloc::heap_allocator!(#[esp_hal::ram(reclaimed)] size: 66320);
     // COEX needs more RAM - so we've added some more
