@@ -23,11 +23,17 @@
 - [ ] write an endpoint to 
 
 ## Webmentions
-- [ ] integrate webmention.io
+- [x] set up webmention.io
     - https://rknight.me/blog/adding-webmentions-to-your-site/
-    - research - webmention.io can send webhooks to a site when a comment|like happens. we could ingest that hook and rebuild the site.
-        - how would i rate limit tho :thinking_face:
+- [ ] add rsvp support
+- [ ] add repost support
+- [ ] pull webmentions from webmention.io via offline script, integrate into site build for non js users
+
 
 ## POSSE
-- [ ] integrate bridgy(fed?)
+- [x] integrate bridgy(fed?)
     - https://fed.brid.gy/
+
+## Now page
+- [ ] add post type and integrate into feed
+- [ ] add a singles page for just the archive
