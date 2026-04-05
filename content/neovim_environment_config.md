@@ -1,9 +1,9 @@
 ---
-title: "Neovim Per-Environment Configs"
+title: "NeoVim Per-Environment Configs"
 type: "entry"
 date: 2026-04-05T10:30:46-04:00
 featured_image: "https://media.zephnet.biz/neovim_config.jpg"
-featured_image_alt: "screenshot of the tree bash command, showing a visual representation of the author's neovim config. it contains multiple lua files used in different environments"
+featured_image_alt: "screenshot of the tree bash command, showing a visual representation of the author's NeoVim config. it contains multiple lua files used in different environments"
 tags: ["neovim", "webdev"]
 ---
 
@@ -78,4 +78,6 @@ You might use one plugin in multiple environments with different configurations,
 ## Conclusion
 
 This isn't a perfect solution, but it's been working well for me. I can manage my configs via a singular git repo, and I no longer have the config-drift problem I've dealt with for several years :) Hope it's helpful!
+
+My full [NeoVim config is public on github](https://github.com/zazzyzeph/nvim_config/tree/master), though it does require NeoVim 12+ (mostly for the new built-in package manager [vim.pack](https://neovim.io/doc/user/pack/))
 
