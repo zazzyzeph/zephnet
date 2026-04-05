@@ -1,6 +1,6 @@
 ---
 title: "Neovim Per-Environment Configs"
-type: "posts"
+type: "entry"
 date: 2026-04-05T10:30:46-04:00
 featured_image: "https://media.zephnet.biz/neovim_config.jpg"
 featured_image_alt: "screenshot of the tree bash command, showing a visual representation of the author's neovim config. it contains multiple lua files used in different environments"
