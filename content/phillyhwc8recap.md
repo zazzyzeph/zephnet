@@ -1,5 +1,5 @@
 ---
-title: "Philly Homebrew Website Club 7 Recap"
+title: "Philly Homebrew Website Club 8 Recap"
 type: "entry"
 date: 2026-04-06T10:00:05-04:00
 featured_image: "https://media.zephnet.biz/phillyhwc8.jpg"
