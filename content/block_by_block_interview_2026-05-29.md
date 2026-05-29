@@ -1,5 +1,5 @@
 ---
-title: "Block by Block segment on Philly Homebrew Website Club and Iffy Books"
+title: "Block by Block radio segment on Philly Homebrew Website Club"
 type: "entry"
 date: 2026-05-29T17:39:05-04:00
 featured_image: "https://media.zephnet.biz/blockbyblocklogo.jpg"
@@ -21,3 +21,5 @@ The interview was a segment on [Block by Block](https://wppm.phillycam.org/progr
   <audio controls src="https://media.zephnet.biz/blockbyblock_hwcandiffy_2026-29-2026.mp3"></audio>
   <a href="https://media.zephnet.biz/blockbyblock_hwcandiffy_2026-29-2026.mp3">Download audio </a>
 </figure>
+
+Tune into [Block by Block](https://wppm.phillycam.org/programs/block-by-block) and please consider supporting [PhillyCAM](https://wppm.phillycam.org/donate)!
