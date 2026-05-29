@@ -11,7 +11,7 @@ tags: ["phillyhwc", "iffy books", "indieweb", "homebrew website club", "indienew
 
 I had the honor of being interviewed by [Milan Parker](https://www.linkedin.com/in/milanparker/) for her report on Philadelphians bringing back 'the old web'.
 
-I got to talk about the [Philly Homebrew Website Club](https://iffybooks.net/event/homebrew-website-club/2026-06-07/), Steve McLaughlin of [Iffy Books](https://iffybooks.net) talked about digital identity and the optimism of the old web, and [Richard Green](https://ragman.net) discussed introducing folks to the web through his [Build your First Website](https://iffybooks.net/event/first-website-2nd-monday/2026-06-08/) workshop.
+I got to talk about the [Philly Homebrew Website Club](https://iffybooks.net/event/homebrew-website-club/2026-06-07/), Steve McLaughlin of [Iffy Books](https://iffybooks.net) talked about digital identity and the optimism of the old web, and [Richard Green](https://ragman.net) discussed introducing folks to the web through his [Build Your First Website](https://iffybooks.net/event/first-website-2nd-monday/2026-06-08/) workshop.
 
 The interview was a segment on [Block by Block](https://wppm.phillycam.org/programs/block-by-block), a radio news program focused on people, communities, and events in the Philadelphia area. You can [listen to the whole show on Soundcloud](https://soundcloud.com/phillycam/bxb-5-27-2026?in=phillycam/sets/block-by-block-on-wppm-106-5#t=0:00), or just listen to the segment below!
 
