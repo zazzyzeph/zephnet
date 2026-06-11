@@ -25,7 +25,7 @@ Notes are archived at https://indieweb.org/events/2026-06-07-hwc-philly
 - Wonders
 
 == Notes ==
-- recent security breach - they got a meta chatbot to man-in-the-middle password a reset link - https://www.techradar.com/pro/security/meta-patches-flaw-that-allowed-metaai-support-bot-to-hand-out-password-reset-links-without-2fa
+- recent security breach - they got a meta chatbot to man-in-the-middle a password reset link - https://www.techradar.com/pro/security/meta-patches-flaw-that-allowed-metaai-support-bot-to-hand-out-password-reset-links-without-2fa
 - static site generators
   - hugo https://gohugo.io
   - astro https://astro.build
