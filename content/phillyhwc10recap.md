@@ -20,8 +20,9 @@ Notes are archived at https://indieweb.org/events/2026-06-07-hwc-philly
 - Tim https://writingofftheworld.neocities.org
 - AJ (not sure why i keep putting this here bc i aint touched it in forever) https://ajstensland.github.io/
 - Ruben https://rubenaleman.com
-- Lyn alinen.net
+- Lyn https://alinen.net
 - Graham https://gvasquez.dev - https://phlcode.club/
+- Wonders
 
 == Notes ==
 - recent security breach - they got a meta chatbot to man-in-the-middle password a reset link - https://www.techradar.com/pro/security/meta-patches-flaw-that-allowed-metaai-support-bot-to-hand-out-password-reset-links-without-2fa
