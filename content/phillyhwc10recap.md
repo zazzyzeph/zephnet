@@ -1,7 +1,7 @@
 ---
 title: "Philly Homebrew Website Club 10 Recap"
 type: "entry"
-date: 2026-05-04T11:33:05-04:00
+date: 2026-06-10T21:48:05-04:00
 featured_image: "https://media.zephnet.biz/phillyhwc10.jpg"
 featured_image_alt: "several people sitting around a plastic table, inside a bookstore with many posters on the wall. The camera is facing towards a projector screen, showing a web browser with a rendering of an alien landscape."
 tags: ["phillyhwc", "event", "iffy books", "indieweb", "homebrew website club", "indienews"]
