@@ -39,4 +39,4 @@ Notes are archived at https://indieweb.org/events/2026-07-11-hwc-philly
 - https://britishdowsers.org/ - if you need a dowser in the uk
 - sara stuff https://www.figma.com/design/EC6u2wWTuhbMqKdoXu1ixK/Sara-website?node-id=7-55&t=NuoV30al1sM40LTy-0
 
-Looking forward to the next one on 2026-08-01!
+Looking forward to the next one on 2026-08-02!
