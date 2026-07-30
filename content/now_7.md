@@ -7,7 +7,7 @@ featured_image_alt: null
 tags: ["now"]
 ---
 
-Listening to Bracny Chelloveck by Gaja - some good ol' nasty modular techno
+Listening to Losing Game (feat. Chelsey Crowley) by Kontravoid. Incredible goth/pop track.
  
 {{< bc url="https://kontravoid.bandcamp.com/track/losing-game-feat-chelsey-crowley" track="124749957" album="3120814863" title="Detachment by Kontravoid" >}}
 
